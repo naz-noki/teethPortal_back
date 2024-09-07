@@ -1,0 +1,1 @@
+ALTER TABLE images ADD COLUMN created_at DATE NOT NULL;

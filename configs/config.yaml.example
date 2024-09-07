@@ -1,0 +1,39 @@
+httpServer:
+  host: "example"
+  port: 1234
+
+grpcServer:
+  host: "example"
+  port: 1234
+
+logger:
+  mode: "dev" # local | dev | prod 
+  httpServerLogFile: "./example/example.example.log"
+  grpcServerLogFile: "./example/example.example.log"
+
+password:
+  salt: "example"
+  secondSalt: "example"
+
+tokens: 
+  accessSecret: "example"
+  refreshSize: 1234
+  refreshSalt: "example" 
+  refreshSecondSalt: "example" 
+
+data:
+  imagesPath: "./example/images"
+  avatarsPath: "./example/avatars"
+
+postgre:
+  # postgres://example:12345@127.0.0.1:5432/teeth?sslmode=disable
+  host: "127.0.0.1"
+  port: 1234
+  user: "example"
+  password: "example"
+  name: "example"
+  sslmode: false
+  
+redis:
+  host: "0.0.0.0"
+  port: 1234

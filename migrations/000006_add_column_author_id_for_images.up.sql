@@ -1,0 +1,1 @@
+ALTER TABLE images ADD COLUMN author_id INT REFERENCES authors(id);

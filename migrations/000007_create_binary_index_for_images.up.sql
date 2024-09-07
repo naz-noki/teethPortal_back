@@ -1,0 +1,1 @@
+CREATE INDEX idx_images ON images(author_id);

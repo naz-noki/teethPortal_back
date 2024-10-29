@@ -46,6 +46,10 @@ type AuthorsRepository interface {
 	GetAuthorById(id int) (*repository.Author, error)
 	GetAvatar(fileName string) (*minio.Object, error)
 	GetAllAuthors() ([]*repository.Author, error)
+	UpdateAuthor(
+		name, description string,
+		authorId, userId int,
+	) error
 }
 
 // ----------------------------------------

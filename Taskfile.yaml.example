@@ -15,9 +15,8 @@ tasks:
 
   migrateMigration:
     cmds: 
-      - migrate -database "postgres://admin:root99173asd67@127.0.0.1:5411/teeth?sslmode=disable" -path ./migrations {{.ACTION}} 
+      - migrate -database "postgres://login:password@127.0.0.1:5411/teeth?sslmode=disable" -path ./migrations {{.ACTION}} 
 
   forceMigration:
     cmds:
-      - migrate -database "postgres://admin:root99173asd67@127.0.0.1:5411/teeth?sslmode=disable" -path ./migrations force {{.VERSION}}
-      
+      - migrate -database "postgres://login:password@127.0.0.1:5411/teeth?sslmode=disable" -path ./migrations force {{.VERSION}}

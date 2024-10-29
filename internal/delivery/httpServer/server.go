@@ -4,7 +4,6 @@ import (
 	"MySotre/internal/delivery"
 	"MySotre/internal/middlewares"
 	"MySotre/internal/routers/authorsRouter"
-	"MySotre/internal/routers/imagesRouter"
 	"MySotre/internal/routers/tokensRouter"
 	"MySotre/internal/routers/usersRouter"
 	"fmt"
@@ -50,7 +49,6 @@ func (h *server) Start() error {
 	// Подключаем роуты
 	usersRouter.AddUsersRoutes(server, h.authClient)
 	tokensRouter.AddTokensRoutes(server, h.tokensClient)
-	imagesRouter.AddImagesRoutes(server, h.tokensClient)
 	authorsRouter.AddAuthorsRoutes(server, h.tokensClient)
 
 	// Устанавливаем значения для сервера

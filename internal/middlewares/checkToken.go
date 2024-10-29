@@ -2,7 +2,6 @@ package middlewares
 
 import (
 	"MySotre/pkg/logger"
-	"MySotre/pkg/sendResponse"
 	"context"
 	"fmt"
 	"net/http"
@@ -22,13 +21,7 @@ func CheckToken(tokensClient tokensApi.TokensClient) gin.HandlerFunc {
 
 		// Проверяем формат токена
 		if len(token) != 2 || token[0] != "Bearer" {
-			sendResponse.Send(
-				ctx,
-				http.StatusUnauthorized,
-				"error",
-				"Invalid token.",
-				nil,
-			)
+			ctx.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
 
@@ -38,31 +31,19 @@ func CheckToken(tokensClient tokensApi.TokensClient) gin.HandlerFunc {
 		}
 
 		checkTokenResponse, errCheckToken := tokensClient.CheckToken(context.Background(), &checkTokenRequest)
-
 		if errCheckToken != nil {
 			logger.Log.Error(fmt.Sprintf("ChechToken: %v", errCheckToken.Error()))
-			sendResponse.Send(
-				ctx,
-				http.StatusInternalServerError,
-				"error",
-				"An error occurred while verifying the token.",
-				nil,
-			)
+			ctx.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
 
 		// Проверяем результат проверки токена
 		if !checkTokenResponse.Result {
-			sendResponse.Send(
-				ctx,
-				http.StatusUnauthorized,
-				"error",
-				"Invalid token.",
-				nil,
-			)
+			ctx.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
 
+		ctx.Set("UserId", checkTokenResponse.UserId)
 		ctx.Next()
 	}
 }

@@ -63,83 +63,6 @@ const authorization = async () => {
     };
 };
 
-const addFile = async (file, fileName) => {
-    try {
-        const resp = await fetch(`${URL}/api/images/add`, {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
-            },
-            body: JSON.stringify({
-                login: localStorage.getItem("login"),
-                authorName: document.querySelector("#file_authorName").value,
-                fileName: fileName,
-                file: file,
-                title: document.querySelector("#file_title").value,
-                description: document.querySelector("#file_description").value,
-                createdAt: new Date(),
-            }),
-        });
-
-        if(resp.status === 401) return updateTokens(() => addFile(file, fileName));
-    
-        const data = await resp.json();
-        console.log(data);       
-    } catch(e) {
-        console.log(e);
-    };
-};
-
-const deleteFile = async (file) => {
-    try {
-        const resp = await fetch(`${URL}/api/images/${file.id}`, {
-            method: "DELETE",
-            credentials: "include",
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
-            },
-        });
-
-        if(resp.status === 401) return updateTokens(() => deleteFile(file));
-    
-        const data = await resp.json();
-        console.log(data);        
-    } catch(e) {
-        console.log(e);
-    };
-}; 
-
-const getAllFiles = async () => {
-    try {
-        const resp = await fetch(`${URL}/api/images/all`, {
-            method: "GET",
-            credentials: "include",
-        });
-
-        if(resp.status === 401) return updateTokens(() => getAllFiles());
-    
-        const data = await resp.json();
-        const images = data.data.images;
-        
-        for(const el of images) {
-            document.querySelector("body").innerHTML += `
-                <h1>${el.imageTitle}</h1> 
-                <h2>${el.imageDescription}</h2> 
-                <h3>${el.imageId}</h3> 
-                <img 
-                    id="${el.imageId}"
-                    src="${URL}/api/images/${el.imageId}"
-                >
-            `;
-        };
-
-        for(const el of document.querySelectorAll("img")) el.addEventListener("click", (e) => deleteFile(e.target));
-    } catch(e) {
-        console.log(e);
-    };
-};
-
 const createAuthor = async () => {
     try {
         const avatarFile = document.querySelector("#create_author_file");
@@ -394,35 +317,6 @@ const updateDataOfImage = async () => {
         console.error(e);
     };    
 };
-
-document    
-    .querySelector("#sendFile")
-    .addEventListener("change", (e) => {
-        const file = e.target.files[0]; 
-        const fileName = file.name;
-    
-        const reader = new FileReader();
-    
-        reader.onload = (event) => {
-            const arrayBuffer = event.target.result;
-            const formData = new Uint8Array(arrayBuffer);
-    
-            addFile(
-                Array.from(formData), 
-                fileName,
-            );
-        };
-    
-        reader.readAsArrayBuffer(file);
-    });
-
-document
-    .querySelector("#all")
-    .addEventListener("click", () => getAllFiles());
-
-document
-    .querySelector("#regBtn")
-    .addEventListener("click", () => registration());  
 
 document
     .querySelector("#authBtn")

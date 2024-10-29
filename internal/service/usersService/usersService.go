@@ -1,8 +1,6 @@
 package usersService
 
 import (
-	"MySotre/internal/service"
-
 	"github.com/naz-noki/teethPortal_proto/gen/go/sso/authApi"
 )
 
@@ -10,7 +8,7 @@ type usersService struct {
 	client authApi.AuthClient
 }
 
-func NewUsersService(authClient authApi.AuthClient) service.UsersService {
+func NewUsersService(authClient authApi.AuthClient) *usersService {
 	us := usersService{
 		client: authClient,
 	}

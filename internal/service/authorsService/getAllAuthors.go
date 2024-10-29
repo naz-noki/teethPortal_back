@@ -10,46 +10,40 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func (a *authorsService) GetAllAuthors(ctx *gin.Context) {
-	resp := new(service.GetAllAuthorsResponse)
-	// Получаем всех авторов из кеша
+func (as *authorsService) GetAllAuthors(ctx *gin.Context) {
+	result := make([]*service.GetAuthorByIdResponse, 0, 9)
 
-	// Получаем всех авторов
-	authorsPointer, errGetAuthors := a.repository.GetAuthors()
+	data, errGetAllAuthors := as.repository.GetAllAuthors()
 
-	if errGetAuthors != nil {
-		logger.Log.Error(fmt.Sprintf("GetAllAuthors: %v", errGetAuthors.Error()))
+	if errGetAllAuthors != nil {
+		logger.Log.Error(fmt.Sprintf("GetAllAuthors: %v", errGetAllAuthors))
 		sendResponse.Send(
 			ctx,
 			http.StatusInternalServerError,
 			"error",
-			"An error occurred while receiving the authors.",
+			"There was an error getting the authors.",
 			nil,
 		)
 		return
 	}
 
-	// Переводим полученных авторов из БД в нужный вид для пользователя
-	authors := *authorsPointer
-	respAuthors := make([]service.AuthorForUser, len(authors))
-
-	for i := 0; i < len(authors); i++ {
-		author := service.AuthorForUser{
-			Id:          authors[i].Id,
-			Name:        authors[i].Name,
-			Description: authors[i].Description,
-		}
-
-		respAuthors[i] = author
+	for i := 0; i < len(data); i++ {
+		result = append(
+			result,
+			&service.GetAuthorByIdResponse{
+				AvatarId:    data[i].AvatarId,
+				Description: data[i].Description,
+				Id:          data[i].Id,
+				Name:        data[i].Name,
+			},
+		)
 	}
 
-	// Отправляем данные о всех авторах
-	resp.Authors = &respAuthors
 	sendResponse.Send(
 		ctx,
-		http.StatusAccepted,
+		http.StatusOK,
 		"success",
-		"OK",
-		&resp,
+		"OK.",
+		result,
 	)
 }

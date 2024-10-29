@@ -42,18 +42,20 @@ type Tokens struct {
 	RefreshSecondSalt string `yaml:"refreshSecondSalt" env-required:"true"`
 }
 
-type Data struct {
-	ImagesPath  string `yaml:"imagesPath" env-required:"true" env-default:"./data/images"`
-	AvatarsPath string `yaml:"avatarsPath" env-required:"true" env-default:"./data/avatars"`
+type Minio struct {
+	Endpoint        string `yaml:"endpoint" env-required:"true" env-default:"localhost:9000"`
+	AccessKeyID     string `yaml:"accessKeyID" env-required:"true"`
+	SecretAccessKey string `yaml:"secretAccessKey" env-required:"true"`
+	UseSSL          bool   `yaml:"useSSL" env-required:"true"`
 }
 
 type config struct {
-	HttpServer `yaml:"httpServer"`
-	Logger     `yaml:"logger"`
-	GrpcServer `yaml:"grpcServer"`
-	Postgre    `yaml:"postgre"`
-	Password   `yaml:"password"`
-	Tokens     `yaml:"tokens"`
-	Data       `yaml:"data"`
-	Redis      `yaml:"redis"`
+	HttpServer *HttpServer `yaml:"httpServer"`
+	Logger     *Logger     `yaml:"logger"`
+	GrpcServer *GrpcServer `yaml:"grpcServer"`
+	Postgre    *Postgre    `yaml:"postgre"`
+	Password   *Password   `yaml:"password"`
+	Tokens     *Tokens     `yaml:"tokens"`
+	Redis      *Redis      `yaml:"redis"`
+	Minio      *Minio      `yaml:"minio"`
 }

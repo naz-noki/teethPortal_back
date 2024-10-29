@@ -31,5 +31,7 @@ func (s *ssoService) IsAdmin(ctx context.Context, req *tokensApi.IsAdminRequest)
 		resp.Result = false
 	}
 
+	resp.UserId = int32(userPayload.UserId)
+
 	return resp, nil
 }

@@ -9,10 +9,10 @@ type authorsService struct {
 	repository service.AuthorsRepository
 }
 
-func NewAuthorsService() service.AuthorsService {
-	as := authorsService{
-		repository: authorsRepository.NewAuthorsRepository(),
+func New() *authorsService {
+	as := &authorsService{
+		repository: authorsRepository.New(),
 	}
 
-	return &as
+	return as
 }

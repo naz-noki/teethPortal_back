@@ -5,6 +5,7 @@ import (
 	"MySotre/internal/delivery/httpServer"
 	"MySotre/pkg/cacheDB"
 	"MySotre/pkg/logger"
+	"MySotre/pkg/minioDB"
 	"MySotre/pkg/pgDB"
 	"log"
 )
@@ -37,6 +38,11 @@ func main() {
 		log.Fatalln("Error when connect to Redis: ", errCacheDB)
 	}
 	defer cacheDB.DB.Close()
+
+	// Подключаемся к MinIO
+	if errMinioDB := minioDB.New(config.Config.Minio.Endpoint, config.Config.Minio.AccessKeyID, config.Config.Minio.SecretAccessKey, config.Config.Minio.UseSSL); errMinioDB != nil {
+		log.Fatalln("Error when connect to MinIO: ", errMinioDB)
+	}
 
 	// Создаём HTTP сервер
 	server := httpServer.New(config.Config.HttpServer.Host, config.Config.GrpcServer.Host, config.Config.HttpServer.Port, config.Config.GrpcServer.Port)

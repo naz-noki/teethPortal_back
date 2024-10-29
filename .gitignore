@@ -6,3 +6,5 @@ config.yaml
 
 logs/
 data/
+
+Taskfile.yaml

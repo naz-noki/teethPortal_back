@@ -4,23 +4,32 @@ import (
 	"MySotre/pkg/pgDB"
 )
 
-func (a *authorsRepository) SaveAuthor(
-	name, description, avatarPath string,
+func (ar *authorsRepository) SaveAuthor(
+	name, description string,
 	userId int,
-) error {
+	avatarId string,
+) (int, error) {
+	var authorId int
+
 	rows, errQuery := pgDB.DB.Query(`
-		INSERT INTO authors (
-			name,
-			description,
-			avatar,
-			user_id
-		) VALUES ($1, $2, $3, $4)
-	`, name, description, avatarPath, userId)
+		INSERT INTO authors(
+			name, description, user_id, avatar_id
+		) VALUES (
+			$1, $2, $3, $4 
+		) RETURNING id;
+	`, name, description, userId, avatarId)
 
 	if errQuery != nil {
-		return errQuery
+		rows.Close()
+		return -1, errQuery
 	}
 	defer rows.Close()
 
-	return nil
+	for rows.Next() {
+		if errScan := rows.Scan(&authorId); errScan != nil {
+			return -1, errScan
+		}
+	}
+
+	return authorId, nil
 }

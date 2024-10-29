@@ -24,5 +24,7 @@ func (s *ssoService) CheckToken(ctx context.Context, req *tokensApi.CheckTokenRe
 		resp.Result = true
 	}
 
+	resp.UserId = int32(userPayload.UserId)
+
 	return resp, nil
 }

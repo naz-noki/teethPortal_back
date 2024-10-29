@@ -1,10 +1,13 @@
 package authorsRepository
 
 type authorsRepository struct {
+	bucketName string
 }
 
-func NewAuthorsRepository() *authorsRepository {
-	ar := authorsRepository{}
+func New() *authorsRepository {
+	ar := new(authorsRepository)
 
-	return &ar
+	ar.bucketName = "authors-avatars"
+
+	return ar
 }

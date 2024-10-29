@@ -9,10 +9,10 @@ import (
 
 type tokensService struct {
 	client     tokensApi.TokensClient
-	repository service.TokensRpository
+	repository service.TokensRepository
 }
 
-func NewTokensService(tokensClient tokensApi.TokensClient) service.TokensService {
+func NewTokensService(tokensClient tokensApi.TokensClient) *tokensService {
 	ts := tokensService{
 		client:     tokensClient,
 		repository: tokensRepository.NewTokensRepository(),

@@ -9,16 +9,13 @@ import (
 )
 
 func AddAuthorsRoutes(s *gin.Engine, tokensClient tokensApi.TokensClient) {
-	as := authorsService.NewAuthorsService()
+	as := authorsService.New()
 
-	authors := s.Group("/api/authors")
+	tokens := s.Group("/api/authors")
 	{
-		authors.POST("/add", middlewares.CheckIsAdmin(tokensClient), as.AddNewAuthor)
-		authors.GET("/all", as.GetAllAuthors)
-		authors.GET("/:authorId", as.GetAuthor)
-		authors.GET("/avatar/:authorName", as.GetAvatarForAuthor)
-		authors.PUT("/:authorId", middlewares.CheckIsAdmin(tokensClient), as.PutAuthor)
-		authors.PUT("/avatar", middlewares.CheckIsAdmin(tokensClient), as.PutAuthorAvatar)
-		authors.DELETE("/:authorId", middlewares.CheckIsAdmin(tokensClient), as.DeleteAuthor)
+		tokens.POST("/", middlewares.CheckIsAdmin(tokensClient), as.SaveAuthor)
+		tokens.GET("/", as.GetAllAuthors)
+		tokens.GET("/:id", as.GetAuthorById)
+		tokens.GET("/avatar/:fileName", as.GetAvatar)
 	}
 }

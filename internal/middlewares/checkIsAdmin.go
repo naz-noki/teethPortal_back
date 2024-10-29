@@ -2,7 +2,6 @@ package middlewares
 
 import (
 	"MySotre/pkg/logger"
-	"MySotre/pkg/sendResponse"
 	"context"
 	"fmt"
 	"net/http"
@@ -22,13 +21,7 @@ func CheckIsAdmin(tokensClient tokensApi.TokensClient) gin.HandlerFunc {
 
 		// Проверяем формат токена
 		if len(token) != 2 || token[0] != "Bearer" {
-			sendResponse.Send(
-				ctx,
-				http.StatusUnauthorized,
-				"error",
-				"Invalid token.",
-				nil,
-			)
+			ctx.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
 
@@ -41,28 +34,17 @@ func CheckIsAdmin(tokensClient tokensApi.TokensClient) gin.HandlerFunc {
 
 		if errIsAdmin != nil {
 			logger.Log.Error(fmt.Sprintf("CheckIsAdmin: %v", errIsAdmin.Error()))
-			sendResponse.Send(
-				ctx,
-				http.StatusInternalServerError,
-				"error",
-				"An error occurred while verifying the token.",
-				nil,
-			)
+			ctx.AbortWithStatus(http.StatusUnauthorized)
 			return
 		}
 
 		// Проверяем результат проверки токена
 		if !isAdminResponse.Result {
-			sendResponse.Send(
-				ctx,
-				http.StatusUnauthorized,
-				"error",
-				"The user is not an admin.",
-				nil,
-			)
+			ctx.AbortWithStatus(http.StatusForbidden)
 			return
 		}
 
+		ctx.Set("UserId", isAdminResponse.UserId)
 		ctx.Next()
 	}
 }

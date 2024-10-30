@@ -63,7 +63,7 @@ func (as *authorsService) UpdateAvatar(ctx *gin.Context) {
 			ctx,
 			http.StatusBadRequest,
 			"error",
-			"An error occurred while updateing avator for author.",
+			"An error occurred while updateing avatar for author.",
 			nil,
 		)
 		return

@@ -58,6 +58,9 @@ type AuthorsRepository interface {
 		authorId int,
 		avatarId string,
 	) error
+	DeleteAuthor(authorId int) error
+	DeleteAvatar(fileName string) error
+	GetAvatarId(authorId int) (string, error)
 }
 
 // ----------------------------------------

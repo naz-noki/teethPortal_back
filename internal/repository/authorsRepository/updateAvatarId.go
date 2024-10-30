@@ -7,15 +7,11 @@ func (ar *authorsRepository) UpdateAvatarId(
 	avatarId string,
 ) error {
 	rows, errQuery := pgDB.DB.Query(`
-		UPDATE authors SET (
-			avatar_id
-		) VALUES (
-			$1
-		) WHERE id = $2;
+		UPDATE authors SET avatar_id = $1
+		WHERE id = $2;
 	`, avatarId, authorId)
 
 	if errQuery != nil {
-		rows.Close()
 		return errQuery
 	}
 	defer rows.Close()

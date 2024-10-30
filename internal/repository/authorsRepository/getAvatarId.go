@@ -12,7 +12,6 @@ func (ar *authorsRepository) GetAvatarId(authorId int) (string, error) {
 	`, authorId)
 
 	if errQuery != nil {
-		rows.Close()
 		return "", errQuery
 	}
 	defer rows.Close()

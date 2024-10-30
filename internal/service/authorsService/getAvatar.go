@@ -58,7 +58,7 @@ func (as *authorsService) GetAvatar(ctx *gin.Context) {
 	ctx.Status(http.StatusOK)
 	ctx.Header("Content-Disposition", "attachment; filename="+stat.Key)
 	ctx.Stream(func(w io.Writer) bool {
-		_, err := io.Copy(w, val)
-		return err == nil
+		_, errCopy := io.Copy(w, val)
+		return errCopy == nil && false
 	})
 }

@@ -16,7 +16,6 @@ func Init(mode, pathToLogsFile string) (*os.File, error) {
 	file, errOpenFile := os.OpenFile(pathToLogsFile, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0644)
 
 	if errOpenFile != nil {
-		file.Close()
 		return nil, errOpenFile
 	}
 

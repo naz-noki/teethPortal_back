@@ -20,7 +20,6 @@ func (ar *authorsRepository) SaveAuthor(
 	`, name, description, userId, avatarId)
 
 	if errQuery != nil {
-		rows.Close()
 		return -1, errQuery
 	}
 	defer rows.Close()

@@ -26,7 +26,6 @@ func (as *authorsService) UpdateAuthor(ctx *gin.Context) {
 		)
 		return
 	}
-
 	// Получаем id пользователя
 	userId, exist := ctx.Get("UserId")
 
@@ -41,7 +40,6 @@ func (as *authorsService) UpdateAuthor(ctx *gin.Context) {
 		)
 		return
 	}
-
 	// Получаем параметр id из запроса
 	idParam, existId := ctx.Params.Get("id")
 	id, errAtoi := strconv.Atoi(idParam)
@@ -57,7 +55,6 @@ func (as *authorsService) UpdateAuthor(ctx *gin.Context) {
 		)
 		return
 	}
-
 	// Обновляем данные о авторе
 	errUpdateAuthor := as.repository.UpdateAuthor(body.Name, body.Description, id, int(userId.(int32)))
 

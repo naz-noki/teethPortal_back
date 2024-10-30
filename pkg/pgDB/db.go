@@ -32,7 +32,6 @@ func Conn(
 	conn, errOpen := sql.Open("postgres", dataSourceName)
 
 	if errOpen != nil {
-		conn.Close()
 		return errOpen
 	}
 	// Проверяем подключение к БД

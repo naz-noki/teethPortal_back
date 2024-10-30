@@ -9,7 +9,6 @@ func (ar *authorsRepository) DeleteAuthor(authorId int) error {
 	`, authorId)
 
 	if errQuery != nil {
-		rows.Close()
 		return errQuery
 	}
 	defer rows.Close()

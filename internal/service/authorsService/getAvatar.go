@@ -11,6 +11,7 @@ import (
 )
 
 func (as *authorsService) GetAvatar(ctx *gin.Context) {
+	// Получаем параметр fileName из запроса
 	fileName, existFileName := ctx.Params.Get("fileName")
 
 	if !existFileName {

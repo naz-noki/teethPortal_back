@@ -50,6 +50,14 @@ type AuthorsRepository interface {
 		name, description string,
 		authorId, userId int,
 	) error
+	UpdateAvatar(
+		oldFileName string,
+		fileHeader *multipart.FileHeader,
+	) (string, error)
+	UpdateAvatarId(
+		authorId int,
+		avatarId string,
+	) error
 }
 
 // ----------------------------------------

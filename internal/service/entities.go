@@ -78,6 +78,18 @@ type ArtsRepository interface {
 	GetArtById(id int) (*repository.Art, error)
 	GetAuthorArts(authorId int) ([]*repository.Art, error)
 	GetFile(fileName string) (*minio.Object, error)
+	UpdateArt(
+		title, description,
+		content, artType string,
+		artId, authorId int,
+	) error
+	UpdateFile(
+		artId int,
+		oldFileName string,
+		fileHeader *multipart.FileHeader,
+	) error
+	DeleteFile(fileName string) error
+	DeleteArt(artId int) error
 }
 
 // ----------------------------------------

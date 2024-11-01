@@ -17,5 +17,9 @@ func AddArtsRoutes(s *gin.Engine, tokensClient tokensApi.TokensClient) {
 		tokens.GET("/", as.GetArts)
 		tokens.GET("/:id", as.GetArtById)
 		tokens.GET("/:id/file/:fileName", as.GetArtFile)
+		tokens.PUT("/:id", middlewares.CheckIsAdmin(tokensClient), as.UpdateArt)
+		tokens.PUT("/:id/file/:fileName", middlewares.CheckIsAdmin(tokensClient), as.UpdateFile)
+		tokens.DELETE("/:id", as.DeleteArt)
+		tokens.DELETE("/:id/file/:fileName", as.DeleteFile)
 	}
 }

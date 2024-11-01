@@ -9,8 +9,8 @@ func (ar *artsRepository) UpdateArt(
 ) error {
 	rows, errQuery := pgDB.DB.Query(`
 		UPDATE arts 
-		SET title = $1, description = $2, content = $3, type = $4, art_id = $5, author_id = $6
-		WHERE art_id = $5 AND author_id = $6;
+		SET title = $1, description = $2, content = $3, type = $4, author_id = $6
+		WHERE id = $5 AND author_id = $6;
 	`, title, description, content, artType, artId, authorId)
 
 	if errQuery != nil {

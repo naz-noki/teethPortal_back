@@ -59,6 +59,19 @@ definitions:
       password:
         type: string
     type: object
+  service.SaveArtBody:
+    properties:
+      authorId:
+        type: integer
+      content:
+        type: string
+      description:
+        type: string
+      title:
+        type: string
+      type:
+        type: string
+    type: object
   service.SaveAuthorBody:
     properties:
       description:
@@ -151,6 +164,33 @@ paths:
       tags:
       - arts
   /api/arts/{id}:
+    delete:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: Art id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+      summary: Delete art record
+      tags:
+      - arts
     get:
       consumes:
       - application/json
@@ -178,7 +218,72 @@ paths:
       summary: Get art by id
       tags:
       - arts
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Art id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: New art information
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/service.SaveArtBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+      summary: Update data for art
+      tags:
+      - arts
   /api/arts/{id}/file/{fileName}:
+    delete:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: Art id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: File name
+        in: path
+        name: fileName
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+      summary: Delete art file
+      tags:
+      - arts
     get:
       consumes:
       - application/json
@@ -209,6 +314,43 @@ paths:
           schema:
             $ref: '#/definitions/sendResponse.Response'
       summary: Get art file by file name
+      tags:
+      - arts
+    put:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: Art id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: File name
+        in: path
+        name: fileName
+        required: true
+        type: string
+      - description: New file
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+      summary: Update art file
       tags:
       - arts
   /api/auth/authorization:

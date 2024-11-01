@@ -81,7 +81,7 @@ func (as *authorsService) DeleteAuthor(ctx *gin.Context) {
 	sendResponse.Send(
 		ctx,
 		http.StatusCreated,
-		"error",
+		"success",
 		"OK.",
 		nil,
 	)

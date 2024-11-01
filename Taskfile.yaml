@@ -7,7 +7,7 @@ tasks:
 
   runGrpcServer:
     cmds:
-      - go run ./cmd/auth/main.go
+      - go run ./cmd/sso/main.go
 
   createMigration:
     cmds:

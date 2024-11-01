@@ -1,9 +1,5 @@
 package repository
 
-const (
-	TableAuthors = "authors"
-)
-
 // MODELS
 
 type User struct {
@@ -27,6 +23,11 @@ type Art struct {
 	Description string
 	Content     string
 	AuthorId    int
-	Type        string
-	FilesIdx    string
+	Type        string // enum (painting or photo or product or text)
+}
+
+type ArtFile struct {
+	Id     int
+	ArtId  int
+	FileId string
 }

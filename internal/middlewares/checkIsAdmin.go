@@ -41,7 +41,7 @@ func CheckIsAdmin(tokensClient tokensApi.TokensClient) gin.HandlerFunc {
 		// ctx.Set("UserId", isAdminResponse.UserId)
 		// ctx.Next()
 
-		ctx.Set("UserId", int32(2))
+		ctx.Set("UserId", int32(1))
 		ctx.Next()
 	}
 }

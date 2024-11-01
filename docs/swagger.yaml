@@ -150,6 +150,67 @@ paths:
       summary: Create new art
       tags:
       - arts
+  /api/arts/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Art ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.GetArtResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+      summary: Get art by id
+      tags:
+      - arts
+  /api/arts/{id}/file/{fileName}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Art id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: File name
+        in: path
+        name: fileName
+        required: true
+        type: string
+      produces:
+      - application/octet-stream
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: file
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+      summary: Get art file by file name
+      tags:
+      - arts
   /api/auth/authorization:
     post:
       consumes:
@@ -380,6 +441,36 @@ paths:
           schema:
             $ref: '#/definitions/sendResponse.Response'
       summary: Update data for author
+      tags:
+      - authors
+  /api/authors/{id}/arts:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Author ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/service.GetArtResponse'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+      summary: Get all author arts
       tags:
       - authors
   /api/authors/{id}/avatar/{fileName}:

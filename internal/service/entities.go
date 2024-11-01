@@ -75,6 +75,9 @@ type ArtsRepository interface {
 	) error
 	GetFileIds(artId int) ([]string, error)
 	GetArts() ([]*repository.Art, error)
+	GetArtById(id int) (*repository.Art, error)
+	GetAuthorArts(authorId int) ([]*repository.Art, error)
+	GetFile(fileName string) (*minio.Object, error)
 }
 
 // ----------------------------------------

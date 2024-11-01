@@ -16,6 +16,7 @@ func AddAuthorsRoutes(s *gin.Engine, tokensClient tokensApi.TokensClient) {
 		tokens.POST("/", middlewares.CheckIsAdmin(tokensClient), as.SaveAuthor)
 		tokens.GET("/", as.GetAllAuthors)
 		tokens.GET("/:id", as.GetAuthorById)
+		tokens.GET("/:id/arts", as.GetAuthorArts)
 		tokens.GET("/:id/avatar/:fileName", as.GetAvatar)
 		tokens.PUT("/:id", middlewares.CheckIsAdmin(tokensClient), as.UpdateAuthor)
 		tokens.PUT("/:id/avatar/:fileName", middlewares.CheckIsAdmin(tokensClient), as.UpdateAvatar)

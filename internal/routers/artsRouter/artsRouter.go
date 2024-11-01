@@ -15,5 +15,7 @@ func AddArtsRoutes(s *gin.Engine, tokensClient tokensApi.TokensClient) {
 	{
 		tokens.POST("/", middlewares.CheckIsAdmin(tokensClient), as.SaveArt)
 		tokens.GET("/", as.GetArts)
+		tokens.GET("/:id", as.GetArtById)
+		tokens.GET("/:id/file/:fileName", as.GetArtFile)
 	}
 }

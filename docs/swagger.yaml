@@ -20,6 +20,25 @@ definitions:
       accessToken:
         type: string
     type: object
+  service.GetArtResponse:
+    properties:
+      author_id:
+        type: integer
+      content:
+        type: string
+      description:
+        type: string
+      files:
+        items:
+          type: string
+        type: array
+      id:
+        type: integer
+      title:
+        type: string
+      type:
+        type: string
+    type: object
   service.GetAuthorByIdResponse:
     properties:
       avatarId:
@@ -67,6 +86,25 @@ info:
   version: "1.0"
 paths:
   /api/arts:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/service.GetArtResponse'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+      summary: Get all arts
+      tags:
+      - arts
     post:
       consumes:
       - application/json

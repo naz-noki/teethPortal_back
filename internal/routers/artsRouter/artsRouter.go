@@ -14,5 +14,6 @@ func AddArtsRoutes(s *gin.Engine, tokensClient tokensApi.TokensClient) {
 	tokens := s.Group("/api/arts")
 	{
 		tokens.POST("/", middlewares.CheckIsAdmin(tokensClient), as.SaveArt)
+		tokens.GET("/", as.GetArts)
 	}
 }

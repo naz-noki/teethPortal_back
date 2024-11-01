@@ -73,6 +73,8 @@ type ArtsRepository interface {
 		artId int,
 		fileHeader *multipart.FileHeader,
 	) error
+	GetFileIds(artId int) ([]string, error)
+	GetArts() ([]*repository.Art, error)
 }
 
 // ----------------------------------------
@@ -134,6 +136,16 @@ type GetAuthorByIdResponse struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	AvatarId    string `json:"avatarId"`
+}
+
+type GetArtResponse struct {
+	Id          int      `json:"id"`
+	Title       string   `json:"title"`
+	Description string   `json:"description"`
+	Content     string   `json:"content"`
+	AuthorId    int      `json:"author_id"`
+	Type        string   `json:"type"`
+	Files       []string `json:"files"`
 }
 
 // ----------------------------------------

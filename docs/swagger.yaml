@@ -66,6 +66,52 @@ info:
   title: Teeth Portal API
   version: "1.0"
 paths:
+  /api/arts:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - collectionFormat: csv
+        description: New files
+        in: formData
+        items:
+          type: file
+        name: file
+        required: true
+        type: array
+      - in: formData
+        name: authorId
+        type: integer
+      - in: formData
+        name: content
+        type: string
+      - in: formData
+        name: description
+        type: string
+      - in: formData
+        name: title
+        type: string
+      - in: formData
+        name: type
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+      summary: Create new art
+      tags:
+      - arts
   /api/auth/authorization:
     post:
       consumes:

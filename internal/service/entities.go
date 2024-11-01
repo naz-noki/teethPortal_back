@@ -63,6 +63,18 @@ type AuthorsRepository interface {
 	GetAvatarId(authorId int) (string, error)
 }
 
+type ArtsRepository interface {
+	SaveArt(
+		title, description,
+		content, artType string,
+		authorId int,
+	) (int, error)
+	SaveFile(
+		artId int,
+		fileHeader *multipart.FileHeader,
+	) error
+}
+
 // ----------------------------------------
 // PAYLOAD FOR TOKENS
 // ----------------------------------------
@@ -95,6 +107,14 @@ type SaveAuthorBody struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	Login       string `json:"login"`
+}
+
+type SaveArtBody struct {
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Content     string `json:"content"`
+	AuthorId    int    `json:"authorId"`
+	Type        string `json:"type"`
 }
 
 // ----------------------------------------

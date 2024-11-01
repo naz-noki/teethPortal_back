@@ -2,22 +2,37 @@ package artsRepository
 
 import (
 	"MySotre/pkg/minioDB"
+	"MySotre/pkg/pgDB"
 	"mime/multipart"
 )
 
 func (ar *artsRepository) SaveFile(
+	artId int,
 	fileHeader *multipart.FileHeader,
-) (string, error) {
+) error {
 	file, errOpen := fileHeader.Open()
 	if errOpen != nil {
-		return "", errOpen
+		return errOpen
 	}
 	defer file.Close()
 
-	avatarId, errUpload := minioDB.Client.Upload(ar.bucketName, fileHeader.Filename, fileHeader.Size, file)
+	fileId, errUpload := minioDB.Client.Upload(ar.bucketName, fileHeader.Filename, fileHeader.Size, file)
 	if errUpload != nil {
-		return "", errUpload
+		return errUpload
 	}
 
-	return avatarId, nil
+	rows, errQuery := pgDB.DB.Query(`
+		INSERT INTO art_files (
+			art_id, file_id
+		) VALUES (
+			$1, $2
+		);
+	`, artId, fileId)
+
+	if errQuery != nil {
+		return errQuery
+	}
+	defer rows.Close()
+
+	return nil
 }

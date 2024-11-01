@@ -10,6 +10,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @Summary Update author avatar
+// @Tags authors
+// @Accept multipart/form-data
+// @Produce json
+// @Param id path int true "Author id"
+// @Param fileName path string true "File name"
+// @Param file formData file true "New file"
+// @Success 201 {object} sendResponse.Response
+// @Failure 400 {object} sendResponse.Response
+// @Failure 500 {object} sendResponse.Response
+// @Router /api/authors/{id}/avatar/{fileName} [put]
 func (as *authorsService) UpdateAvatar(ctx *gin.Context) {
 	// Получаем параметр id из запроса
 	idParam, existId := ctx.Params.Get("id")

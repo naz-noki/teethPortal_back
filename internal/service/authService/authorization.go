@@ -1,4 +1,4 @@
-package usersService
+package authService
 
 import (
 	"MySotre/internal/service"
@@ -12,7 +12,16 @@ import (
 	"github.com/naz-noki/teethPortal_proto/gen/go/sso/authApi"
 )
 
-func (u *usersService) Authorization(ctx *gin.Context) {
+// @Summary Authorization user
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param body body service.AuthorizationBody true "user information"
+// @Success 202 {object} service.AuthorizationResponse
+// @Failure 400 {object} sendResponse.Response
+// @Failure 500 {object} sendResponse.Response
+// @Router /api/auth/authorization [post]
+func (u *authService) Authorization(ctx *gin.Context) {
 	response := new(service.AuthorizationResponse)
 	// Парсим тело запроса
 	body := new(service.AuthorizationBody)
@@ -35,7 +44,7 @@ func (u *usersService) Authorization(ctx *gin.Context) {
 		Password: body.Password,
 	}
 	// Делаем запрос на GRPC сервер для авторизации пользователя
-	authorizationResponse, errAuthorization := u.client.Authorization(context.Background(), &authorizationRequest)
+	authorizationResponse, errAuthorization := u.authClient.Authorization(context.Background(), &authorizationRequest)
 
 	if errAuthorization != nil {
 		logger.Log.Error(fmt.Sprintf("Authorization: %v", errAuthorization.Error()))

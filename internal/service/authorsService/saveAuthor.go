@@ -11,6 +11,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @Summary Create new author
+// @Tags authors
+// @Accept json
+// @Produce json
+// @Param file formData file true "New file"
+// @Param data formData service.SaveAuthorBody true "Author information"
+// @Success 201 {object} sendResponse.Response
+// @Failure 400 {object} sendResponse.Response
+// @Failure 500 {object} sendResponse.Response
+// @Router /api/authors [post]
 func (as *authorsService) SaveAuthor(ctx *gin.Context) {
 	// Получаем id пользователя
 	userId, exist := ctx.Get("UserId")

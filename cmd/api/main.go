@@ -10,6 +10,17 @@ import (
 	"log"
 )
 
+// @title Teeth Portal API
+// @version 1.0
+// @description API Server for TeethPortal Application
+
+// @host localhost:8585
+// @BasePath /
+
+// @securityDefinitions.apiKey ApiKeyAuth
+// @in header
+// @name Authorization
+
 func main() {
 	// Загружаем конфиг
 	if err := config.Load(); err != nil {

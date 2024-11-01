@@ -1,8 +1,8 @@
-package tokensRepository
+package usersRepository
 
 import "MySotre/pkg/pgDB"
 
-func (t *tokensRepository) GetUserIdByLogin(login string) (int, error) {
+func (ur *usersRepository) GetUserIdByLogin(login string) (int, error) {
 	id := -1
 
 	rows, errQuery := pgDB.DB.Query(`

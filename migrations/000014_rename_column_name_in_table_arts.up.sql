@@ -1,0 +1,1 @@
+ALTER TABLE arts RENAME COLUMN name TO title;

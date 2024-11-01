@@ -21,3 +21,6 @@ tasks:
     cmds:
       - migrate -database "postgres://{{.LOGIN}}:{{.PASSWORD}}@127.0.0.1:5411/teeth?sslmode=disable" -path ./migrations force {{.VERSION}}
       
+  generateSwagger:
+    cmds:
+      - swag init -g cmd/api/main.go

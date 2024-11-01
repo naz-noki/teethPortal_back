@@ -14,10 +14,8 @@ type ssoService struct {
 	tokensApi.UnimplementedTokensServer
 }
 
-func New() service.SsoService {
-	s := ssoService{
+func New() *ssoService {
+	return &ssoService{
 		repository: ssoRepository.New(),
 	}
-
-	return &s
 }

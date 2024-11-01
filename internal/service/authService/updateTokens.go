@@ -1,4 +1,4 @@
-package tokensService
+package authService
 
 import (
 	"MySotre/internal/service"
@@ -12,7 +12,16 @@ import (
 	"github.com/naz-noki/teethPortal_proto/gen/go/sso/tokensApi"
 )
 
-func (t *tokensService) UpdateTokens(ctx *gin.Context) {
+// @Summary Update user JWT - tokens
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param body body service.UpdateTokensBody true "Access token"
+// @Success 202 {object} service.UpdateTokensResponse
+// @Failure 400 {object} sendResponse.Response
+// @Failure 500 {object} sendResponse.Response
+// @Router /api/auth/tokens [post]
+func (t *authService) UpdateTokens(ctx *gin.Context) {
 	response := new(service.UpdateTokensResponse)
 	// Парсим тело запроса
 	body := new(service.UpdateTokensBody)
@@ -65,7 +74,7 @@ func (t *tokensService) UpdateTokens(ctx *gin.Context) {
 		RefreshToken: refreshToken,
 	}
 	// Делаем запрос на GRPC сервер для авторизации пользователя
-	updateTokensResponse, errUpdateTokens := t.client.UpdateTokens(context.Background(), &updateTokensRequest)
+	updateTokensResponse, errUpdateTokens := t.tokensClient.UpdateTokens(context.Background(), &updateTokensRequest)
 
 	if errUpdateTokens != nil {
 		logger.Log.Error(fmt.Sprintf("UpdateTokens: %v", errUpdateTokens.Error()))

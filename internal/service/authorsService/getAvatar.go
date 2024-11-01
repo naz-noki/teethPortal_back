@@ -10,6 +10,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @Summary Get author's avatar by file name
+// @Tags authors
+// @Accept json
+// @Produce application/octet-stream
+// @Param fileName path string true "File name"
+// @Success 200 {file} file
+// @Failure 400 {object} sendResponse.Response
+// @Failure 500 {object} sendResponse.Response
+// @Router /api/authors/{id}/avatar/{fileName} [get]
 func (as *authorsService) GetAvatar(ctx *gin.Context) {
 	// Получаем параметр fileName из запроса
 	fileName, existFileName := ctx.Params.Get("fileName")

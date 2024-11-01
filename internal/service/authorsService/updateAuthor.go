@@ -11,6 +11,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @Summary Update data for author
+// @Tags authors
+// @Accept json
+// @Produce json
+// @Param id path int true "Author id"
+// @Param body body service.SaveAuthorBody true "New author information"
+// @Success 201 {object} sendResponse.Response
+// @Failure 400 {object} sendResponse.Response
+// @Failure 500 {object} sendResponse.Response
+// @Router /api/authors/{id} [put]
 func (as *authorsService) UpdateAuthor(ctx *gin.Context) {
 	// Парсим тело запроса
 	body := new(service.SaveAuthorBody)

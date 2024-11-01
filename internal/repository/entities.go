@@ -20,3 +20,13 @@ type Author struct {
 	UserId      int
 	AvatarId    string
 }
+
+type Art struct {
+	Id          int
+	Title       string
+	Description string
+	Content     string
+	AuthorId    int
+	Type        string
+	FilesIdx    string
+}

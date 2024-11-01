@@ -1,11 +1,11 @@
 package httpServer
 
 import (
+	_ "MySotre/docs"
 	"MySotre/internal/delivery"
 	"MySotre/internal/middlewares"
+	"MySotre/internal/routers/authRouter"
 	"MySotre/internal/routers/authorsRouter"
-	"MySotre/internal/routers/tokensRouter"
-	"MySotre/internal/routers/usersRouter"
 	"fmt"
 	"net/http"
 	"time"
@@ -13,6 +13,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/naz-noki/teethPortal_proto/gen/go/sso/authApi"
 	"github.com/naz-noki/teethPortal_proto/gen/go/sso/tokensApi"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"google.golang.org/grpc"
 )
 
@@ -47,9 +49,10 @@ func (h *server) Start() error {
 	server.Use(middlewares.AddCors())
 
 	// Подключаем роуты
-	usersRouter.AddUsersRoutes(server, h.authClient)
-	tokensRouter.AddTokensRoutes(server, h.tokensClient)
+	authRouter.AddAuthRoutes(server, h.authClient, h.tokensClient)
 	authorsRouter.AddAuthorsRoutes(server, h.tokensClient)
+	// Init Swagger
+	server.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// Устанавливаем значения для сервера
 	srv := &http.Server{

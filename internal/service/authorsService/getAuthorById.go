@@ -11,6 +11,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @Summary Get author by id
+// @Tags authors
+// @Accept json
+// @Produce json
+// @Param id path int true "Author ID"
+// @Success 200 {object} service.GetAuthorByIdResponse
+// @Failure 400 {object} sendResponse.Response
+// @Failure 500 {object} sendResponse.Response
+// @Router /api/authors/{id} [get]
 func (as *authorsService) GetAuthorById(ctx *gin.Context) {
 	resp := new(service.GetAuthorByIdResponse)
 

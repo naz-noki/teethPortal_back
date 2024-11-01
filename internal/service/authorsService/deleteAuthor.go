@@ -10,6 +10,15 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @Summary Delete author
+// @Tags authors
+// @Accept json
+// @Produce json
+// @Param id path int true "Author ID"
+// @Success 201 {object} sendResponse.Response
+// @Failure 400 {object} sendResponse.Response
+// @Failure 500 {object} sendResponse.Response
+// @Router /api/authors/{id} [delete]
 func (as *authorsService) DeleteAuthor(ctx *gin.Context) {
 	// Получаем параметр id из запроса
 	idParam, existId := ctx.Params.Get("id")

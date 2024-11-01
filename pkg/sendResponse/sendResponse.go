@@ -2,7 +2,7 @@ package sendResponse
 
 import "github.com/gin-gonic/gin"
 
-type response struct {
+type Response struct {
 	Status string      `json:"status"`
 	Msg    string      `json:"message"`
 	Data   interface{} `json:"data"`
@@ -15,7 +15,7 @@ func Send(
 	msg string,
 	data interface{},
 ) {
-	resp := response{
+	resp := Response{
 		Status: status,
 		Msg:    msg,
 		Data:   data,

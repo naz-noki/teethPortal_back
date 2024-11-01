@@ -1,4 +1,4 @@
-package usersService
+package authService
 
 import (
 	"MySotre/internal/service"
@@ -12,12 +12,21 @@ import (
 	"github.com/naz-noki/teethPortal_proto/gen/go/sso/authApi"
 )
 
-func (u *usersService) Registartion(ctx *gin.Context) {
+// @Summary Registration user
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param body body service.RegistrationBody true "User information"
+// @Success 201 {object} sendResponse.Response
+// @Failure 400 {object} sendResponse.Response
+// @Failure 500 {object} sendResponse.Response
+// @Router /api/auth/registration [post]
+func (u *authService) Registration(ctx *gin.Context) {
 	// Парсим тело запроса
-	body := new(service.RegistartionBody)
+	body := new(service.RegistrationBody)
 
 	if errBindJSON := ctx.BindJSON(body); errBindJSON != nil {
-		logger.Log.Error(fmt.Sprintf("Registartion: %v", errBindJSON.Error()))
+		logger.Log.Error(fmt.Sprintf("Registration: %v", errBindJSON.Error()))
 		sendResponse.Send(
 			ctx,
 			http.StatusBadRequest,
@@ -35,7 +44,7 @@ func (u *usersService) Registartion(ctx *gin.Context) {
 		IsAdmin:  body.IsAdmin,
 	}
 	// Делаем запрос на GRPC сервер для регистрации пользователя
-	registrationResponse, errRegistration := u.client.Registration(context.Background(), &registrationRequest)
+	registrationResponse, errRegistration := u.authClient.Registration(context.Background(), &registrationRequest)
 
 	if errRegistration != nil {
 		logger.Log.Error(fmt.Sprintf("Registartion: %v", errRegistration.Error()))

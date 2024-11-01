@@ -30,7 +30,7 @@ type SsoRepository interface {
 	GetUserById(id int) (*repository.User, error)
 }
 
-type TokensRepository interface {
+type AuthRepository interface {
 	GetUserIdByLogin(login string) (int, error)
 }
 
@@ -76,7 +76,7 @@ type UserPayload struct {
 // REQUEST BODIES
 // ----------------------------------------
 
-type RegistartionBody struct {
+type RegistrationBody struct {
 	Login    string `json:"login"`
 	Password string `json:"password"`
 	IsAdmin  bool   `json:"isAdmin"`

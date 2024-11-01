@@ -10,6 +10,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @Summary Get all authors
+// @Tags authors
+// @Accept json
+// @Produce json
+// @Success 200 {object} []service.GetAuthorByIdResponse
+// @Failure 500 {object} sendResponse.Response
+// @Router /api/authors/ [get]
 func (as *authorsService) GetAllAuthors(ctx *gin.Context) {
 	result := make([]*service.GetAuthorByIdResponse, 0, 9)
 

@@ -17,6 +17,7 @@ import (
 // @Param id path int true "Art id"
 // @Success 201 {object} sendResponse.Response
 // @Failure 400 {object} sendResponse.Response
+// @Failure 404 {object} sendResponse.Response
 // @Failure 500 {object} sendResponse.Response
 // @Router /api/arts/{id} [delete]
 func (as *artsService) DeleteArt(ctx *gin.Context) {
@@ -31,6 +32,19 @@ func (as *artsService) DeleteArt(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"Invalid art id parameter.",
+			nil,
+		)
+		return
+	}
+	// Проверяем наличие записи по id
+	check, errCheckExistArt := as.repository.CheckExistArt(id)
+
+	if errCheckExistArt != nil || !check {
+		sendResponse.Send(
+			ctx,
+			http.StatusNotFound,
+			"error",
+			"Art with this id - not found.",
 			nil,
 		)
 		return

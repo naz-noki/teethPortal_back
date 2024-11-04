@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,12 +15,29 @@ import (
 // @Tags authors
 // @Accept json
 // @Produce application/octet-stream
+// @Param id path int true "Author id"
 // @Param fileName path string true "File name"
 // @Success 200 {file} file
 // @Failure 400 {object} sendResponse.Response
+// @Failure 404 {object} sendResponse.Response
 // @Failure 500 {object} sendResponse.Response
 // @Router /api/authors/{id}/avatar/{fileName} [get]
 func (as *authorsService) GetAvatar(ctx *gin.Context) {
+	// Получаем параметр id из запроса
+	idParam, existId := ctx.Params.Get("id")
+	id, errAtoi := strconv.Atoi(idParam)
+
+	if !existId || errAtoi != nil {
+		logger.Log.Error(fmt.Sprintf("GetAvatar: Parameter id exist - %t, error: %v", existId, errAtoi))
+		sendResponse.Send(
+			ctx,
+			http.StatusBadRequest,
+			"error",
+			"Invalid author id parameter.",
+			nil,
+		)
+		return
+	}
 	// Получаем параметр fileName из запроса
 	fileName, existFileName := ctx.Params.Get("fileName")
 
@@ -34,7 +52,20 @@ func (as *authorsService) GetAvatar(ctx *gin.Context) {
 		)
 		return
 	}
+	// Проверяем наличие записи по id
+	check, errCheckExistAuthor := as.repository.CheckExistAuthor(id)
 
+	if errCheckExistAuthor != nil || !check {
+		sendResponse.Send(
+			ctx,
+			http.StatusNotFound,
+			"error",
+			"Author with this id - not found.",
+			nil,
+		)
+		return
+	}
+	// Получаем аватар автора
 	val, errGetAvatar := as.repository.GetAvatar(fileName)
 
 	if errGetAvatar != nil {

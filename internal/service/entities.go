@@ -61,6 +61,7 @@ type AuthorsRepository interface {
 	DeleteAuthor(authorId int) error
 	DeleteAvatar(fileName string) error
 	GetAvatarId(authorId int) (string, error)
+	CheckExistAuthor(id int) (bool, error)
 }
 
 type ArtsRepository interface {
@@ -90,6 +91,7 @@ type ArtsRepository interface {
 	) error
 	DeleteFile(fileName string) error
 	DeleteArt(artId int) error
+	CheckExistArt(id int) (bool, error)
 }
 
 // ----------------------------------------

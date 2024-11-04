@@ -18,6 +18,7 @@ import (
 // @Param id path int true "Author ID"
 // @Success 200 {object} service.GetAuthorByIdResponse
 // @Failure 400 {object} sendResponse.Response
+// @Failure 404 {object} sendResponse.Response
 // @Failure 500 {object} sendResponse.Response
 // @Router /api/authors/{id} [get]
 func (as *authorsService) GetAuthorById(ctx *gin.Context) {
@@ -38,7 +39,19 @@ func (as *authorsService) GetAuthorById(ctx *gin.Context) {
 		)
 		return
 	}
+	// Проверяем наличие записи по id
+	check, errCheckExistAuthor := as.repository.CheckExistAuthor(id)
 
+	if errCheckExistAuthor != nil || !check {
+		sendResponse.Send(
+			ctx,
+			http.StatusNotFound,
+			"error",
+			"Author with this id - not found.",
+			nil,
+		)
+		return
+	}
 	// Получаем автора
 	author, errGetAuthorById := as.repository.GetAuthorById(id)
 

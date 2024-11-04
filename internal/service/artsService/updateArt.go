@@ -20,6 +20,7 @@ import (
 // @Param body body service.SaveArtBody true "New art information"
 // @Success 200 {object} sendResponse.Response
 // @Failure 400 {object} sendResponse.Response
+// @Failure 404 {object} sendResponse.Response
 // @Failure 500 {object} sendResponse.Response
 // @Router /api/arts/{id} [put]
 func (as *artsService) UpdateArt(ctx *gin.Context) {
@@ -49,6 +50,19 @@ func (as *artsService) UpdateArt(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"Invalid author id parameter.",
+			nil,
+		)
+		return
+	}
+	// Проверяем наличие записи по id
+	check, errCheckExistArt := as.repository.CheckExistArt(id)
+
+	if errCheckExistArt != nil || !check {
+		sendResponse.Send(
+			ctx,
+			http.StatusNotFound,
+			"error",
+			"Art with this id - not found.",
 			nil,
 		)
 		return

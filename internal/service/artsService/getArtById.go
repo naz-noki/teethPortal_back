@@ -18,6 +18,7 @@ import (
 // @Param id path int true "Art ID"
 // @Success 200 {object} service.GetArtResponse
 // @Failure 400 {object} sendResponse.Response
+// @Failure 404 {object} sendResponse.Response
 // @Failure 500 {object} sendResponse.Response
 // @Router /api/arts/{id} [get]
 func (as *artsService) GetArtById(ctx *gin.Context) {
@@ -36,22 +37,34 @@ func (as *artsService) GetArtById(ctx *gin.Context) {
 		)
 		return
 	}
-	// Получаем все записи
+	// Проверяем наличие записи по id
+	check, errCheckExistArt := as.repository.CheckExistArt(id)
+
+	if errCheckExistArt != nil || !check {
+		sendResponse.Send(
+			ctx,
+			http.StatusNotFound,
+			"error",
+			"Art with this id - not found.",
+			nil,
+		)
+		return
+	}
+	// Получаем запись по id
 	data, errGetArts := as.repository.GetArtById(id)
 
 	if errGetArts != nil {
 		logger.Log.Error(fmt.Sprintf("GetArtById: %v", errGetArts))
 		sendResponse.Send(
 			ctx,
-			http.StatusInternalServerError,
+			http.StatusNotFound,
 			"error",
-			"An error occurred while getting record.",
+			"Art with this id - not found.",
 			nil,
 		)
 		return
 	}
-	// Получаем названия всех файлов для каждой записи
-
+	// Получаем названия всех файлов для записи
 	fileIds, errGetFileIds := as.repository.GetFileIds(data.Id)
 
 	if errGetFileIds != nil {

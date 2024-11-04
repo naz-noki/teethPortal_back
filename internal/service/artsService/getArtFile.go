@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -21,6 +22,21 @@ import (
 // @Failure 500 {object} sendResponse.Response
 // @Router /api/arts/{id}/file/{fileName} [get]
 func (as *artsService) GetArtFile(ctx *gin.Context) {
+	// Получаем параметр id из запроса
+	idParam, existId := ctx.Params.Get("id")
+	id, errAtoi := strconv.Atoi(idParam)
+
+	if !existId || errAtoi != nil {
+		logger.Log.Error(fmt.Sprintf("GetArtById: Parameter id exist - %t, error: %v", existId, errAtoi))
+		sendResponse.Send(
+			ctx,
+			http.StatusBadRequest,
+			"error",
+			"Invalid author id parameter.",
+			nil,
+		)
+		return
+	}
 	// Получаем параметр fileName из запроса
 	fileName, existFileName := ctx.Params.Get("fileName")
 
@@ -35,7 +51,20 @@ func (as *artsService) GetArtFile(ctx *gin.Context) {
 		)
 		return
 	}
+	// Проверяем наличие записи по id
+	check, errCheckExistArt := as.repository.CheckExistArt(id)
 
+	if errCheckExistArt != nil || !check {
+		sendResponse.Send(
+			ctx,
+			http.StatusNotFound,
+			"error",
+			"Art with this id - not found.",
+			nil,
+		)
+		return
+	}
+	// Получаем файл
 	val, errGetAvatar := as.repository.GetFile(fileName)
 
 	if errGetAvatar != nil {

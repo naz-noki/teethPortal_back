@@ -19,6 +19,7 @@ import (
 // @Param file formData file true "New file"
 // @Success 200 {object} sendResponse.Response
 // @Failure 400 {object} sendResponse.Response
+// @Failure 404 {object} sendResponse.Response
 // @Failure 500 {object} sendResponse.Response
 // @Router /api/arts/{id}/file/{fileName} [put]
 func (as *artsService) UpdateFile(ctx *gin.Context) {
@@ -47,6 +48,19 @@ func (as *artsService) UpdateFile(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"Invalid author fileName parameter.",
+			nil,
+		)
+		return
+	}
+	// Проверяем наличие записи по id
+	check, errCheckExistArt := as.repository.CheckExistArt(id)
+
+	if errCheckExistArt != nil || !check {
+		sendResponse.Send(
+			ctx,
+			http.StatusNotFound,
+			"error",
+			"Art with this id - not found.",
 			nil,
 		)
 		return

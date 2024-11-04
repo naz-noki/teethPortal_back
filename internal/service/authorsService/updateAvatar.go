@@ -19,6 +19,7 @@ import (
 // @Param file formData file true "New file"
 // @Success 201 {object} sendResponse.Response
 // @Failure 400 {object} sendResponse.Response
+// @Failure 404 {object} sendResponse.Response
 // @Failure 500 {object} sendResponse.Response
 // @Router /api/authors/{id}/avatar/{fileName} [put]
 func (as *authorsService) UpdateAvatar(ctx *gin.Context) {
@@ -61,6 +62,19 @@ func (as *authorsService) UpdateAvatar(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"An error occurred while retrieving data from the request body.",
+			nil,
+		)
+		return
+	}
+	// Проверяем наличие записи по id
+	check, errCheckExistAuthor := as.repository.CheckExistAuthor(id)
+
+	if errCheckExistAuthor != nil || !check {
+		sendResponse.Send(
+			ctx,
+			http.StatusNotFound,
+			"error",
+			"Author with this id - not found.",
 			nil,
 		)
 		return

@@ -19,6 +19,7 @@ import (
 // @Param body body service.SaveAuthorBody true "New author information"
 // @Success 201 {object} sendResponse.Response
 // @Failure 400 {object} sendResponse.Response
+// @Failure 404 {object} sendResponse.Response
 // @Failure 500 {object} sendResponse.Response
 // @Router /api/authors/{id} [put]
 func (as *authorsService) UpdateAuthor(ctx *gin.Context) {
@@ -61,6 +62,19 @@ func (as *authorsService) UpdateAuthor(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"Invalid author id parameter.",
+			nil,
+		)
+		return
+	}
+	// Проверяем наличие записи по id
+	check, errCheckExistAuthor := as.repository.CheckExistAuthor(id)
+
+	if errCheckExistAuthor != nil || !check {
+		sendResponse.Send(
+			ctx,
+			http.StatusNotFound,
+			"error",
+			"Author with this id - not found.",
 			nil,
 		)
 		return

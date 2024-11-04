@@ -1,12 +1,16 @@
 package artsRepository
 
-import "MySotre/pkg/pgDB"
+import (
+	"MySotre/pkg/pgDB"
+	"log"
+)
 
 func (ar *artsRepository) CheckExistArt(id int) (bool, error) {
+	log.Println("qwe")
 	idx := -1
 
 	rows, errQuery := pgDB.DB.Query(`
-		SELECT * FROM arts 
+		SELECT id FROM arts 
 		WHERE id = $1;
 	`, id)
 

@@ -6,7 +6,7 @@ func (ar *authorsRepository) CheckExistAuthor(id int) (bool, error) {
 	idx := -1
 
 	rows, errQuery := pgDB.DB.Query(`
-		SELECT * FROM authors 
+		SELECT id FROM authors 
 		WHERE id = $1;
 	`, id)
 

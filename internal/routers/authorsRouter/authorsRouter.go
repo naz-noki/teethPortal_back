@@ -11,15 +11,15 @@ import (
 func AddAuthorsRoutes(s *gin.Engine, tokensClient tokensApi.TokensClient) {
 	as := authorsService.New()
 
-	tokens := s.Group("/api/authors")
+	authors := s.Group("/api/authors")
 	{
-		tokens.POST("/", middlewares.CheckIsAdmin(tokensClient), as.SaveAuthor)
-		tokens.GET("/", as.GetAllAuthors)
-		tokens.GET("/:id", as.GetAuthorById)
-		tokens.GET("/:id/arts", as.GetAuthorArts)
-		tokens.GET("/:id/avatar/:fileName", as.GetAvatar)
-		tokens.PUT("/:id", middlewares.CheckIsAdmin(tokensClient), as.UpdateAuthor)
-		tokens.PUT("/:id/avatar/:fileName", middlewares.CheckIsAdmin(tokensClient), as.UpdateAvatar)
-		tokens.DELETE("/:id", middlewares.CheckIsAdmin(tokensClient), as.DeleteAuthor)
+		authors.POST("/", middlewares.CheckIsAdmin(tokensClient), as.SaveAuthor)
+		authors.GET("/", as.GetAllAuthors)
+		authors.GET("/:id", as.GetAuthorById)
+		authors.GET("/:id/arts", as.GetAuthorArts)
+		authors.GET("/:id/avatar/:fileName", as.GetAvatar)
+		authors.PUT("/:id", middlewares.CheckIsAdmin(tokensClient), as.UpdateAuthor)
+		authors.PUT("/:id/avatar/:fileName", middlewares.CheckIsAdmin(tokensClient), as.UpdateAvatar)
+		authors.DELETE("/:id", middlewares.CheckIsAdmin(tokensClient), as.DeleteAuthor)
 	}
 }

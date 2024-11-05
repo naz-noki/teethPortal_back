@@ -3,6 +3,7 @@ package service
 import (
 	"MySotre/internal/repository"
 	"mime/multipart"
+	"time"
 
 	"github.com/minio/minio-go/v7"
 	"github.com/naz-noki/teethPortal_proto/gen/go/sso/authApi"
@@ -95,6 +96,14 @@ type ArtsRepository interface {
 	CheckExistArt(id int) (bool, error)
 	CountAllRecords() (int, error)
 	CountAuthorArts(authorId int) (int, error)
+}
+
+type AuctionRepository interface {
+	AddArt(
+		startTime, endTime time.Duration,
+		price, artId, authorId, userId int,
+		paid, sent bool,
+	) error
 }
 
 // ----------------------------------------

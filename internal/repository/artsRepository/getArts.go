@@ -5,7 +5,10 @@ import (
 	"MySotre/pkg/pgDB"
 )
 
-func (ar *artsRepository) GetArts(limit, offset int) ([]*repository.Art, error) {
+func (ar *artsRepository) GetArts(
+	limit, offset int,
+	artType string,
+) ([]*repository.Art, error) {
 	result := make([]*repository.Art, 0, 9)
 
 	if limit == 0 {
@@ -15,8 +18,9 @@ func (ar *artsRepository) GetArts(limit, offset int) ([]*repository.Art, error) 
 	rows, errQuery := pgDB.DB.Query(`
 		SELECT id, title, description, content, author_id, type 
 		FROM arts
+		WHERE ($3 = '' OR type::text = $3) 
 		ORDER BY id LIMIT $1 OFFSET $2; 
-	`, limit, offset)
+	`, limit, offset, artType)
 
 	if errQuery != nil {
 		return nil, errQuery

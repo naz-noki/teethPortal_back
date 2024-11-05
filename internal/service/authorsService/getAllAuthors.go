@@ -15,6 +15,8 @@ import (
 // @Tags authors
 // @Accept json
 // @Produce json
+// @Param page query int false "Page"
+// @Param limit query int false "Limit"
 // @Success 200 {object} []service.GetAuthorByIdResponse
 // @Failure 500 {object} sendResponse.Response
 // @Router /api/authors/ [get]

@@ -24,6 +24,9 @@ func Get(ctx *gin.Context) *pagination {
 	}
 
 	offset := (page - 1) * limit
+	if offset < 0 {
+		offset = 0
+	}
 
 	return &pagination{
 		Page:   page,

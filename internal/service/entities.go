@@ -76,9 +76,9 @@ type ArtsRepository interface {
 		fileHeader *multipart.FileHeader,
 	) error
 	GetFileIds(artId int) ([]string, error)
-	GetArts(limit, offset int) ([]*repository.Art, error)
+	GetArts(limit, offset int, artType string) ([]*repository.Art, error)
+	GetAuthorArts(authorId, limit, offset int, artType string) ([]*repository.Art, error)
 	GetArtById(id int) (*repository.Art, error)
-	GetAuthorArts(authorId, limit, offset int) ([]*repository.Art, error)
 	GetFile(fileName string) (*minio.Object, error)
 	UpdateArt(
 		title, description,

@@ -114,6 +114,10 @@ paths:
       consumes:
       - application/json
       parameters:
+      - description: Art type
+        in: query
+        name: type
+        type: string
       - description: Page
         in: query
         name: page
@@ -521,6 +525,15 @@ paths:
     get:
       consumes:
       - application/json
+      parameters:
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
       produces:
       - application/json
       responses:
@@ -646,6 +659,18 @@ paths:
         in: path
         name: id
         required: true
+        type: integer
+      - description: Art type
+        in: query
+        name: type
+        type: string
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      - description: Limit
+        in: query
+        name: limit
         type: integer
       produces:
       - application/json

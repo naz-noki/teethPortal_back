@@ -15,6 +15,7 @@ import (
 // @Tags arts
 // @Accept json
 // @Produce json
+// @Param type query string false "Art type"
 // @Param page query int false "Page"
 // @Param limit query int false "Limit"
 // @Success 200 {object} []service.GetArtResponse
@@ -22,10 +23,12 @@ import (
 // @Router /api/arts [get]
 func (as *artsService) GetArts(ctx *gin.Context) {
 	resp := make([]*service.GetArtResponse, 0, 9)
+	// Получаем параметр типа записи
+	artType := ctx.Query("type")
 	// Получаем параметры пагинации
 	pagination := paginationParams.Get(ctx)
 	// Получаем все записи
-	data, errGetArts := as.repository.GetArts(pagination.Limit, pagination.Offset)
+	data, errGetArts := as.repository.GetArts(pagination.Limit, pagination.Offset, artType)
 
 	if errGetArts != nil {
 		logger.Log.Error(fmt.Sprintf("GetArts: %v", errGetArts))

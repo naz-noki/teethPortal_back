@@ -8,11 +8,11 @@ type ResponseMeta struct {
 	Counter int `json:"counter"`
 }
 
-type Response[T interface{}] struct {
+type Response struct {
 	Status string        `json:"status"`
 	Msg    string        `json:"message"`
 	Meta   *ResponseMeta `json:"meta"`
-	Data   T             `json:"data"`
+	Data   interface{}   `json:"data"`
 }
 
 func Send(
@@ -25,7 +25,7 @@ func Send(
 	counter int,
 	data interface{},
 ) {
-	resp := Response[interface{}]{
+	resp := Response{
 		Status: status,
 		Msg:    msg,
 		Meta: &ResponseMeta{

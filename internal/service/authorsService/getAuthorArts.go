@@ -17,6 +17,9 @@ import (
 // @Accept json
 // @Produce json
 // @Param id path int true "Author ID"
+// @Param type query string false "Art type"
+// @Param page query int false "Page"
+// @Param limit query int false "Limit"
 // @Success 200 {object} []service.GetArtResponse
 // @Failure 400 {object} sendResponse.Response
 // @Failure 404 {object} sendResponse.Response
@@ -24,6 +27,8 @@ import (
 // @Router /api/authors/{id}/arts [get]
 func (as *authorsService) GetAuthorArts(ctx *gin.Context) {
 	resp := make([]*service.GetArtResponse, 0, 9)
+	// Получаем параметр типа записи
+	artType := ctx.Query("type")
 	// Получаем параметры пагинации
 	pagination := paginationParams.Get(ctx)
 	// Получаем параметр id из запроса
@@ -61,7 +66,7 @@ func (as *authorsService) GetAuthorArts(ctx *gin.Context) {
 		return
 	}
 	// Получаем все записи
-	data, errGetArts := as.artsRepository.GetAuthorArts(id, pagination.Limit, pagination.Offset)
+	data, errGetArts := as.artsRepository.GetAuthorArts(id, pagination.Limit, pagination.Offset, artType)
 
 	if errGetArts != nil {
 		logger.Log.Error(fmt.Sprintf("GetAuthorArts: %v", errGetArts))

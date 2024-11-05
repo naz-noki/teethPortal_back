@@ -32,6 +32,9 @@ func (u *authService) Registration(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"An error occurred while retrieving data from the request body.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -53,6 +56,9 @@ func (u *authService) Registration(ctx *gin.Context) {
 			http.StatusInternalServerError,
 			"error",
 			"An error occurred during user registration.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -64,6 +70,9 @@ func (u *authService) Registration(ctx *gin.Context) {
 		http.StatusCreated,
 		"success",
 		"The user has been successfully created.",
+		1,
+		1,
+		1,
 		nil,
 	)
 }

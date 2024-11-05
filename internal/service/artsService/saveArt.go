@@ -31,6 +31,9 @@ func (as *artsService) SaveArt(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"An error occurred while retrieving data from the request body.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -44,6 +47,9 @@ func (as *artsService) SaveArt(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"No files were uploaded.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -62,6 +68,9 @@ func (as *artsService) SaveArt(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"An error occurred while retrieving data from the request body.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -76,6 +85,9 @@ func (as *artsService) SaveArt(ctx *gin.Context) {
 			http.StatusInternalServerError,
 			"error",
 			"An error occurred while saving data for art.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -91,6 +103,9 @@ func (as *artsService) SaveArt(ctx *gin.Context) {
 				http.StatusInternalServerError,
 				"error",
 				"An error occurred while saving files for art.",
+				1,
+				1,
+				1,
 				nil,
 			)
 			return
@@ -102,6 +117,9 @@ func (as *artsService) SaveArt(ctx *gin.Context) {
 		http.StatusCreated,
 		"success",
 		"OK.",
+		1,
+		1,
+		1,
 		nil,
 	)
 }

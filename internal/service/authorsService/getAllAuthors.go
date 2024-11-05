@@ -3,6 +3,7 @@ package authorsService
 import (
 	"MySotre/internal/service"
 	"MySotre/pkg/logger"
+	"MySotre/pkg/paginationParams"
 	"MySotre/pkg/sendResponse"
 	"fmt"
 	"net/http"
@@ -19,8 +20,10 @@ import (
 // @Router /api/authors/ [get]
 func (as *authorsService) GetAllAuthors(ctx *gin.Context) {
 	result := make([]*service.GetAuthorByIdResponse, 0, 9)
-
-	data, errGetAllAuthors := as.repository.GetAllAuthors()
+	// Получаем параметры пагинации
+	pagination := paginationParams.Get(ctx)
+	// Получаем все записи
+	data, errGetAllAuthors := as.repository.GetAllAuthors(pagination.Limit, pagination.Offset)
 
 	if errGetAllAuthors != nil {
 		logger.Log.Error(fmt.Sprintf("GetAllAuthors: %v", errGetAllAuthors))
@@ -29,6 +32,9 @@ func (as *authorsService) GetAllAuthors(ctx *gin.Context) {
 			http.StatusInternalServerError,
 			"error",
 			"There was an error getting the authors.",
+			pagination.Page,
+			pagination.Limit,
+			0,
 			nil,
 		)
 		return
@@ -45,12 +51,31 @@ func (as *authorsService) GetAllAuthors(ctx *gin.Context) {
 			},
 		)
 	}
+	// Получаем общее кол-во записей
+	counter, errCountAllRecords := as.repository.CountAllRecords()
+
+	if errCountAllRecords != nil {
+		sendResponse.Send(
+			ctx,
+			http.StatusInternalServerError,
+			"error",
+			"An error occurred while getting counter for all records.",
+			pagination.Page,
+			pagination.Limit,
+			0,
+			nil,
+		)
+		return
+	}
 
 	sendResponse.Send(
 		ctx,
 		http.StatusOK,
 		"success",
 		"OK.",
+		pagination.Page,
+		pagination.Limit,
+		counter,
 		result,
 	)
 }

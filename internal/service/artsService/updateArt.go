@@ -5,7 +5,6 @@ import (
 	"MySotre/pkg/logger"
 	"MySotre/pkg/sendResponse"
 	"fmt"
-	"log"
 	"net/http"
 	"strconv"
 
@@ -34,6 +33,9 @@ func (as *artsService) UpdateArt(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"An error occurred while retrieving data from the request body.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -43,13 +45,15 @@ func (as *artsService) UpdateArt(ctx *gin.Context) {
 	id, errAtoi := strconv.Atoi(idParam)
 
 	if !existId || errAtoi != nil {
-		log.Println("qwe")
 		logger.Log.Error(fmt.Sprintf("UpdateArt: Parameter id exist - %t, error: %v", existId, errAtoi))
 		sendResponse.Send(
 			ctx,
 			http.StatusBadRequest,
 			"error",
 			"Invalid author id parameter.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -63,6 +67,9 @@ func (as *artsService) UpdateArt(ctx *gin.Context) {
 			http.StatusNotFound,
 			"error",
 			"Art with this id - not found.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -77,6 +84,9 @@ func (as *artsService) UpdateArt(ctx *gin.Context) {
 			http.StatusInternalServerError,
 			"error",
 			"An error occurred while updating the record.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -87,6 +97,9 @@ func (as *artsService) UpdateArt(ctx *gin.Context) {
 		http.StatusOK,
 		"success",
 		"OK.",
+		1,
+		1,
+		1,
 		nil,
 	)
 }

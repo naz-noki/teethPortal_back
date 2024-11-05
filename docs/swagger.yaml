@@ -5,8 +5,19 @@ definitions:
       data: {}
       message:
         type: string
+      meta:
+        $ref: '#/definitions/sendResponse.ResponseMeta'
       status:
         type: string
+    type: object
+  sendResponse.ResponseMeta:
+    properties:
+      counter:
+        type: integer
+      limit:
+        type: integer
+      page:
+        type: integer
     type: object
   service.AuthorizationBody:
     properties:
@@ -102,6 +113,15 @@ paths:
     get:
       consumes:
       - application/json
+      parameters:
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
       produces:
       - application/json
       responses:

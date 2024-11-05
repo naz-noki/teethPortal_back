@@ -33,6 +33,9 @@ func (t *authService) UpdateTokens(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"An error occurred while retrieving data from the request body.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -48,6 +51,9 @@ func (t *authService) UpdateTokens(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"Failed to get refresh token.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -63,6 +69,9 @@ func (t *authService) UpdateTokens(ctx *gin.Context) {
 			http.StatusInternalServerError,
 			"error",
 			"An error occurred while updating tokens.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -83,6 +92,9 @@ func (t *authService) UpdateTokens(ctx *gin.Context) {
 			http.StatusInternalServerError,
 			"error",
 			"An error occurred while updating tokens.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -106,6 +118,9 @@ func (t *authService) UpdateTokens(ctx *gin.Context) {
 		http.StatusAccepted,
 		"success",
 		"The tokens have been successfully updated.",
+		1,
+		1,
+		1,
 		response,
 	)
 }

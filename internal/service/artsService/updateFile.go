@@ -34,6 +34,9 @@ func (as *artsService) UpdateFile(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"Invalid author id parameter.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -48,6 +51,9 @@ func (as *artsService) UpdateFile(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"Invalid author fileName parameter.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -61,6 +67,9 @@ func (as *artsService) UpdateFile(ctx *gin.Context) {
 			http.StatusNotFound,
 			"error",
 			"Art with this id - not found.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -75,6 +84,9 @@ func (as *artsService) UpdateFile(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"An error occurred while retrieving data from the request body.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -89,6 +101,9 @@ func (as *artsService) UpdateFile(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"An error occurred while updating file for art.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -99,6 +114,9 @@ func (as *artsService) UpdateFile(ctx *gin.Context) {
 		http.StatusOK,
 		"success",
 		"OK.",
+		1,
+		1,
+		1,
 		nil,
 	)
 }

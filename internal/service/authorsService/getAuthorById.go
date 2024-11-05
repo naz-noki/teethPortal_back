@@ -35,6 +35,9 @@ func (as *authorsService) GetAuthorById(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"Invalid author id parameter.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -48,6 +51,9 @@ func (as *authorsService) GetAuthorById(ctx *gin.Context) {
 			http.StatusNotFound,
 			"error",
 			"Author with this id - not found.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -62,6 +68,9 @@ func (as *authorsService) GetAuthorById(ctx *gin.Context) {
 			http.StatusInternalServerError,
 			"error",
 			"There was an error getting the author.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -77,6 +86,9 @@ func (as *authorsService) GetAuthorById(ctx *gin.Context) {
 		http.StatusOK,
 		"success",
 		"OK.",
+		1,
+		1,
+		1,
 		resp,
 	)
 }

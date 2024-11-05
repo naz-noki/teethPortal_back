@@ -45,7 +45,7 @@ type AuthorsRepository interface {
 	) (string, error)
 	GetAuthorById(id int) (*repository.Author, error)
 	GetAvatar(fileName string) (*minio.Object, error)
-	GetAllAuthors() ([]*repository.Author, error)
+	GetAllAuthors(limit, offset int) ([]*repository.Author, error)
 	UpdateAuthor(
 		name, description string,
 		authorId, userId int,
@@ -62,6 +62,7 @@ type AuthorsRepository interface {
 	DeleteAvatar(fileName string) error
 	GetAvatarId(authorId int) (string, error)
 	CheckExistAuthor(id int) (bool, error)
+	CountAllRecords() (int, error)
 }
 
 type ArtsRepository interface {
@@ -75,9 +76,9 @@ type ArtsRepository interface {
 		fileHeader *multipart.FileHeader,
 	) error
 	GetFileIds(artId int) ([]string, error)
-	GetArts() ([]*repository.Art, error)
+	GetArts(limit, offset int) ([]*repository.Art, error)
 	GetArtById(id int) (*repository.Art, error)
-	GetAuthorArts(authorId int) ([]*repository.Art, error)
+	GetAuthorArts(authorId, limit, offset int) ([]*repository.Art, error)
 	GetFile(fileName string) (*minio.Object, error)
 	UpdateArt(
 		title, description,
@@ -92,6 +93,8 @@ type ArtsRepository interface {
 	DeleteFile(fileName string) error
 	DeleteArt(artId int) error
 	CheckExistArt(id int) (bool, error)
+	CountAllRecords() (int, error)
+	CountAuthorArts(authorId int) (int, error)
 }
 
 // ----------------------------------------

@@ -32,6 +32,9 @@ func (as *authorsService) SaveAuthor(ctx *gin.Context) {
 			http.StatusInternalServerError,
 			"error",
 			"An error occurred while saving the author.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -51,6 +54,9 @@ func (as *authorsService) SaveAuthor(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"An error occurred while retrieving data from the request body.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -66,6 +72,9 @@ func (as *authorsService) SaveAuthor(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"An error occurred while retrieving data from the request body.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -81,6 +90,9 @@ func (as *authorsService) SaveAuthor(ctx *gin.Context) {
 			http.StatusInternalServerError,
 			"error",
 			"An error occurred while saving the author avatar.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -96,6 +108,9 @@ func (as *authorsService) SaveAuthor(ctx *gin.Context) {
 			http.StatusInternalServerError,
 			"error",
 			"An error occurred while saving the author.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -106,6 +121,9 @@ func (as *authorsService) SaveAuthor(ctx *gin.Context) {
 		http.StatusCreated,
 		"success",
 		"OK.",
+		1,
+		1,
+		1,
 		nil,
 	)
 }

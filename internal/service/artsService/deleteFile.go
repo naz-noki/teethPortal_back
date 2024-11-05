@@ -33,6 +33,9 @@ func (as *artsService) DeleteFile(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"Invalid author id parameter.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -47,6 +50,9 @@ func (as *artsService) DeleteFile(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"Invalid art fileName parameter.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -60,6 +66,9 @@ func (as *artsService) DeleteFile(ctx *gin.Context) {
 			http.StatusNotFound,
 			"error",
 			"Art with this id - not found.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -74,6 +83,9 @@ func (as *artsService) DeleteFile(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"An error occurred while deleting file.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -84,6 +96,9 @@ func (as *artsService) DeleteFile(ctx *gin.Context) {
 		http.StatusCreated,
 		"success",
 		"OK.",
+		1,
+		1,
+		1,
 		nil,
 	)
 }

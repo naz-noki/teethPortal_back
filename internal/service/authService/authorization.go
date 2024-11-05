@@ -33,6 +33,9 @@ func (u *authService) Authorization(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"An error occurred while retrieving data from the request body.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -53,6 +56,9 @@ func (u *authService) Authorization(ctx *gin.Context) {
 			http.StatusInternalServerError,
 			"error",
 			"An error occurred during user authorization.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -76,6 +82,9 @@ func (u *authService) Authorization(ctx *gin.Context) {
 		http.StatusAccepted,
 		"success",
 		"The user has been successfully authorized.",
+		1,
+		1,
+		1,
 		response,
 	)
 }

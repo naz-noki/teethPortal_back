@@ -27,6 +27,20 @@ const docTemplate = `{
                     "arts"
                 ],
                 "summary": "Get all arts",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Page",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Limit",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -987,8 +1001,25 @@ const docTemplate = `{
                 "message": {
                     "type": "string"
                 },
+                "meta": {
+                    "$ref": "#/definitions/sendResponse.ResponseMeta"
+                },
                 "status": {
                     "type": "string"
+                }
+            }
+        },
+        "sendResponse.ResponseMeta": {
+            "type": "object",
+            "properties": {
+                "counter": {
+                    "type": "integer"
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "page": {
+                    "type": "integer"
                 }
             }
         },

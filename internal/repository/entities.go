@@ -1,5 +1,9 @@
 package repository
 
+const (
+	MaxLimit = 9223372036854775807
+)
+
 // MODELS
 
 type User struct {

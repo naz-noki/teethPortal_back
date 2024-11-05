@@ -33,6 +33,9 @@ func (as *artsService) GetArtFile(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"Invalid author id parameter.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -47,6 +50,9 @@ func (as *artsService) GetArtFile(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"Invalid author fileName parameter.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -60,6 +66,9 @@ func (as *artsService) GetArtFile(ctx *gin.Context) {
 			http.StatusNotFound,
 			"error",
 			"Art with this id - not found.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -74,6 +83,9 @@ func (as *artsService) GetArtFile(ctx *gin.Context) {
 			http.StatusInternalServerError,
 			"error",
 			"An error occurred while getting the author avatar.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -87,6 +99,9 @@ func (as *artsService) GetArtFile(ctx *gin.Context) {
 			http.StatusInternalServerError,
 			"error",
 			"An error occurred while getting the author avatar.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return

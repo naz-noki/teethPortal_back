@@ -34,6 +34,9 @@ func (as *authorsService) GetAvatar(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"Invalid author id parameter.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -48,6 +51,9 @@ func (as *authorsService) GetAvatar(ctx *gin.Context) {
 			http.StatusBadRequest,
 			"error",
 			"Invalid author fileName parameter.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -61,6 +67,9 @@ func (as *authorsService) GetAvatar(ctx *gin.Context) {
 			http.StatusNotFound,
 			"error",
 			"Author with this id - not found.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -75,6 +84,9 @@ func (as *authorsService) GetAvatar(ctx *gin.Context) {
 			http.StatusInternalServerError,
 			"error",
 			"An error occurred while getting the author avatar.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return
@@ -88,6 +100,9 @@ func (as *authorsService) GetAvatar(ctx *gin.Context) {
 			http.StatusInternalServerError,
 			"error",
 			"An error occurred while getting the author avatar.",
+			1,
+			1,
+			1,
 			nil,
 		)
 		return

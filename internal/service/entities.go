@@ -99,10 +99,19 @@ type ArtsRepository interface {
 }
 
 type AuctionRepository interface {
-	AddArt(
+	AddLot(
+		startTime, endTime time.Duration,
+		price, artId, authorId int,
+		paid, sent bool,
+	) error
+	UpdateLot(
+		auctionId int,
 		startTime, endTime time.Duration,
 		price, artId, authorId, userId int,
 		paid, sent bool,
+	) error
+	PlaceBet(
+		auctionId, price, userId int,
 	) error
 }
 

@@ -14,7 +14,7 @@ func CheckIsAdmin(tokensClient tokensApi.TokensClient) gin.HandlerFunc {
 		// )
 
 		// // Проверяем формат токена
-		// if len(token) != 2 || token[0] != "Bearer" {
+		// if len(token) != 2 || (token[0] != "Bearer" && token[0] != "bearer")  {
 		// 	ctx.AbortWithStatus(http.StatusUnauthorized)
 		// 	return
 		// }

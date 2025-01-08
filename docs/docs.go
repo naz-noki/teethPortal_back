@@ -615,11 +615,6 @@ const docTemplate = `{
                     },
                     {
                         "type": "string",
-                        "name": "login",
-                        "in": "formData"
-                    },
-                    {
-                        "type": "string",
                         "name": "name",
                         "in": "formData"
                     }
@@ -1164,9 +1159,6 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "description": {
-                    "type": "string"
-                },
-                "login": {
                     "type": "string"
                 },
                 "name": {

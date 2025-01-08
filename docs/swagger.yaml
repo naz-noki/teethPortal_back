@@ -87,8 +87,6 @@ definitions:
     properties:
       description:
         type: string
-      login:
-        type: string
       name:
         type: string
     type: object
@@ -496,9 +494,6 @@ paths:
         type: file
       - in: formData
         name: description
-        type: string
-      - in: formData
-        name: login
         type: string
       - in: formData
         name: name

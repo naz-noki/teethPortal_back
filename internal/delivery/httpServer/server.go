@@ -7,6 +7,7 @@ import (
 	"MySotre/internal/routers/artsRouter"
 	"MySotre/internal/routers/authRouter"
 	"MySotre/internal/routers/authorsRouter"
+	"MySotre/internal/routers/categoriesRouter"
 	"fmt"
 	"net/http"
 	"time"
@@ -53,6 +54,7 @@ func (h *server) Start() error {
 	authRouter.AddAuthRoutes(server, h.authClient, h.tokensClient)
 	authorsRouter.AddAuthorsRoutes(server, h.tokensClient)
 	artsRouter.AddArtsRoutes(server, h.tokensClient)
+	categoriesRouter.AddCategoriesRoutes(server, h.tokensClient)
 	// Init Swagger
 	server.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 

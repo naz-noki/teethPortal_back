@@ -23,6 +23,16 @@ type SsoService interface {
 // REPOSITORIES
 // ----------------------------------------
 
+type CategoriesRepository interface {
+	CreateCategory(
+		name, description,
+		previewFileId string,
+	) error
+	SavePreviewFile(
+		fileHeader *multipart.FileHeader,
+	) (string, error)
+}
+
 type SsoRepository interface {
 	GetUserByLogin(login string) (*repository.User, error)
 	SetUser(login, password string, isAdmin bool) error
@@ -127,6 +137,11 @@ type UserPayload struct {
 // ----------------------------------------
 // REQUEST BODIES
 // ----------------------------------------
+
+type CreateCategoryBody struct {
+	Name        string `json:"name"`
+	Description string `json:"description"`
+}
 
 type RegistrationBody struct {
 	Login    string `json:"login"`

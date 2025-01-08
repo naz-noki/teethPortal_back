@@ -146,7 +146,6 @@ type UpdateTokensBody struct {
 type SaveAuthorBody struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
-	Login       string `json:"login"`
 }
 
 type SaveArtBody struct {

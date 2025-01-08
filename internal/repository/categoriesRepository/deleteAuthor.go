@@ -14,8 +14,8 @@ func (t *categoriesRepository) DeleteAuthor(authorId, categoryId int) error {
 	`
 	params := []interface{}{authorId, categoryId}
 
-	ctx, cncl := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cncl()
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
 
 	_, errExecContext := pgDB.DB.ExecContext(ctx, query, params...)
 	if errExecContext != nil {

@@ -18,8 +18,8 @@ func (t *categoriesRepository) CreateCategory(
 	`
 	params := []interface{}{name, description, previewFileId}
 
-	ctx, cncl := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cncl()
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
 
 	_, errExecContext := pgDB.DB.ExecContext(ctx, query, params...)
 	if errExecContext != nil {

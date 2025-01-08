@@ -49,3 +49,10 @@ type Auction struct {
 	Paid      bool
 	Sent      bool
 }
+
+type Category struct {
+	Id          int
+	Name        string
+	Description string
+	AuthorsIds  []int
+}

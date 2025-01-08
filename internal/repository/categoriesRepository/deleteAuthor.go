@@ -6,17 +6,13 @@ import (
 	"time"
 )
 
-func (t *categoriesRepository) CreateCategory(
-	name, description,
-	previewFileId string,
-) error {
+func (t *categoriesRepository) DeleteAuthor(authorId, categoryId int) error {
 	query := `
-		INSERT INTO categories (name, description, preview_file_id) 
-		VALUES (
-			$1, $2, $3
-		)
+		DELETE FROM author_category 
+		WHERE
+			author_id = $1 AND category_id = $2
 	`
-	params := []interface{}{name, description, previewFileId}
+	params := []interface{}{authorId, categoryId}
 
 	ctx, cncl := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cncl()

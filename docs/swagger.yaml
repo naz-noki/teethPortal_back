@@ -19,6 +19,13 @@ definitions:
       page:
         type: integer
     type: object
+  service.AddAuthorsBody:
+    properties:
+      authorsIds:
+        items:
+          type: integer
+        type: array
+    type: object
   service.AuthorizationBody:
     properties:
       login:
@@ -801,6 +808,73 @@ paths:
           schema:
             $ref: '#/definitions/sendResponse.Response'
       summary: Create new category
+      tags:
+      - categories
+  /api/categories/{id}/authors:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Authors
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/service.AddAuthorsBody'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+      summary: Delete authors from category
+      tags:
+      - categories
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Authors
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/service.AddAuthorsBody'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+      summary: Add authors to category
       tags:
       - categories
 securityDefinitions:

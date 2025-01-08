@@ -31,6 +31,9 @@ type CategoriesRepository interface {
 	SavePreviewFile(
 		fileHeader *multipart.FileHeader,
 	) (string, error)
+	CheckExistCategory(id int) (bool, error)
+	AddAuthor(authorId, categoryId int) error
+	DeleteAuthor(authorId, categoryId int) error
 }
 
 type SsoRepository interface {
@@ -141,6 +144,10 @@ type UserPayload struct {
 type CreateCategoryBody struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
+}
+
+type AddAuthorsBody struct {
+	AuthorsIds []int `json:"authorsIds"`
 }
 
 type RegistrationBody struct {

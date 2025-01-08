@@ -6,17 +6,11 @@ import (
 	"time"
 )
 
-func (t *categoriesRepository) CreateCategory(
-	name, description,
-	previewFileId string,
-) error {
-	query := `
-		INSERT INTO categories (name, description, preview_file_id) 
-		VALUES (
-			$1, $2, $3
-		)
-	`
-	params := []interface{}{name, description, previewFileId}
+func (t *categoriesRepository) AddAuthor(authorId, categoryId int) error {
+	query := `INSERT INTO author_category (author_id, category_id) VALUES (
+		$1, $2
+	)`
+	params := []interface{}{authorId, categoryId}
 
 	ctx, cncl := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cncl()

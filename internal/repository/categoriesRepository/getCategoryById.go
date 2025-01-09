@@ -4,6 +4,7 @@ import (
 	"MySotre/internal/repository"
 	"MySotre/pkg/pgDB"
 	"context"
+	"log"
 	"time"
 )
 
@@ -13,7 +14,7 @@ func (t *categoriesRepository) GetCategoryById(id int) (*repository.Category, er
 			categories.id, categories.name, 
 			categories.description, categories.preview_file_id, author_category.author_id
 		FROM categories 
-		INNER JOIN author_category ON categories.id = author_category.category_id
+		LEFT JOIN author_category ON categories.id = author_category.category_id
 		WHERE categories.id = $1;
 	`
 
@@ -30,19 +31,22 @@ func (t *categoriesRepository) GetCategoryById(id int) (*repository.Category, er
 	category := new(repository.Category)
 
 	for rows.Next() {
-		var authorId int
+		var authorId *int
 		errScan := rows.Scan(&category.Id, &category.Name, &category.Description, &category.PreviewFileId, &authorId)
 
 		if errScan != nil {
 			return nil, errScan
 		}
-		authorsIds = append(authorsIds, authorId)
+
+		if authorId != nil {
+			authorsIds = append(authorsIds, *authorId)
+		}
 	}
 
 	if errNext := rows.Err(); errNext != nil {
 		return nil, errNext
 	}
 	category.AuthorsIds = authorsIds
-
+	log.Println(category)
 	return category, nil
 }

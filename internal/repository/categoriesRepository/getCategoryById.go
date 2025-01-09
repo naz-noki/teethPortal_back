@@ -4,7 +4,6 @@ import (
 	"MySotre/internal/repository"
 	"MySotre/pkg/pgDB"
 	"context"
-	"log"
 	"time"
 )
 
@@ -47,6 +46,6 @@ func (t *categoriesRepository) GetCategoryById(id int) (*repository.Category, er
 		return nil, errNext
 	}
 	category.AuthorsIds = authorsIds
-	log.Println(category)
+
 	return category, nil
 }

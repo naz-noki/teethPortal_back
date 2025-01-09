@@ -17,10 +17,10 @@ func AddCategoriesRoutes(s *gin.Engine, tokensClient tokensApi.TokensClient) {
 		categories.GET("/:id", cs.GetCategoryById)
 		categories.GET("/:id/preview-file/:fileName", cs.GetPreviewFile)
 		categories.POST("/", middlewares.CheckIsAdmin(tokensClient), cs.CreateCategory)
-		categories.POST("/:id/authors", middlewares.CheckIsAdmin(tokensClient), cs.CreateCategory)
+		categories.POST("/:id/authors", middlewares.CheckIsAdmin(tokensClient), cs.AddAuthor)
 		categories.PUT("/:id", middlewares.CheckIsAdmin(tokensClient), cs.UpdateCategory)
 		categories.PUT("/:id/preview-file", middlewares.CheckIsAdmin(tokensClient), cs.UpdatePreviewFile)
-		categories.DELETE("/:id/authors", middlewares.CheckIsAdmin(tokensClient), cs.CreateCategory)
+		categories.DELETE("/:id/authors", middlewares.CheckIsAdmin(tokensClient), cs.DeleteAuthor)
 		categories.DELETE("/:id", middlewares.CheckIsAdmin(tokensClient), cs.DeleteCategory)
 	}
 }

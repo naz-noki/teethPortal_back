@@ -19,5 +19,6 @@ func AddCategoriesRoutes(s *gin.Engine, tokensClient tokensApi.TokensClient) {
 		categories.POST("/", middlewares.CheckIsAdmin(tokensClient), cs.CreateCategory)
 		categories.POST("/:id/authors", middlewares.CheckIsAdmin(tokensClient), cs.CreateCategory)
 		categories.DELETE("/:id/authors", middlewares.CheckIsAdmin(tokensClient), cs.CreateCategory)
+		categories.DELETE("/:id", middlewares.CheckIsAdmin(tokensClient), cs.DeleteCategory)
 	}
 }

@@ -43,7 +43,6 @@ func (t *categoriesService) CreateCategory(ctx *gin.Context) {
 		)
 		return
 	}
-
 	// Получаем файл из запроса
 	fileHeader, errFormFile := ctx.FormFile("file")
 
@@ -61,7 +60,6 @@ func (t *categoriesService) CreateCategory(ctx *gin.Context) {
 		)
 		return
 	}
-
 	// Сохраняем файл
 	fileId, errSavePreviewFile := t.repository.SavePreviewFile(fileHeader)
 

@@ -1018,6 +1018,43 @@ paths:
       summary: Add authors to category
       tags:
       - categories
+  /api/categories/{id}/preview-file:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Category id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: New file
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: file
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+      summary: Update category preview file by file name
+      tags:
+      - categories
   /api/categories/{id}/preview-file/{fileName}:
     get:
       consumes:

@@ -43,6 +43,14 @@ type CategoriesRepository interface {
 	GetAllCategoriesIds() ([]int, error)
 	GetPreviewFile(fileName string) (*minio.Object, error)
 	DeletePreviewFile(fileName string) error
+	UpdatePreviewFile(
+		oldFileName string,
+		fileHeader *multipart.FileHeader,
+	) (string, error)
+	UpdatePreviewFileId(
+		id int,
+		newPreviewFileId string,
+	) error
 }
 
 type SsoRepository interface {

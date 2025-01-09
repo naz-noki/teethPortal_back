@@ -67,7 +67,7 @@ func (t *categoriesService) GetCategories(ctx *gin.Context) {
 		"OK.",
 		1,
 		1,
-		1,
+		len(categories),
 		categories,
 	)
 }

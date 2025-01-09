@@ -53,6 +53,13 @@ definitions:
       accessToken:
         type: string
     type: object
+  service.CreateCategoryBody:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+    type: object
   service.GetArtResponse:
     properties:
       author_id:
@@ -905,6 +912,43 @@ paths:
           schema:
             $ref: '#/definitions/sendResponse.Response'
       summary: Get category by id
+      tags:
+      - categories
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: New category information
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/service.CreateCategoryBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/sendResponse.Response'
+      summary: Update category by id
       tags:
       - categories
   /api/categories/{id}/authors:

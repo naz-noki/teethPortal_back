@@ -1472,9 +1472,90 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/api/global-search": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "global search"
+                ],
+                "summary": "Global search for all entities",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "The string by which the search will take place",
+                        "name": "query",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/service.SearchResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/sendResponse.Response"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "repository.Art": {
+            "type": "object",
+            "properties": {
+                "authorId": {
+                    "type": "integer"
+                },
+                "content": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "type": {
+                    "description": "enum (painting or photo or product or text)",
+                    "type": "string"
+                }
+            }
+        },
+        "repository.Author": {
+            "type": "object",
+            "properties": {
+                "avatarId": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "userId": {
+                    "type": "integer"
+                }
+            }
+        },
         "repository.Category": {
             "type": "object",
             "properties": {
@@ -1656,6 +1737,29 @@ const docTemplate = `{
                 },
                 "name": {
                     "type": "string"
+                }
+            }
+        },
+        "service.SearchResponse": {
+            "type": "object",
+            "properties": {
+                "arts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/repository.Art"
+                    }
+                },
+                "authors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/repository.Author"
+                    }
+                },
+                "categories": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/repository.Category"
+                    }
                 }
             }
         },

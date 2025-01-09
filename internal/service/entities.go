@@ -23,6 +23,12 @@ type SsoService interface {
 // REPOSITORIES
 // ----------------------------------------
 
+type GlobalSearchRepository interface {
+	GetArts(searchText string) ([]*repository.Art, error)
+	GetAuthors(searchText string) ([]*repository.Author, error)
+	GetCategories(searchText string) ([]*repository.Category, error)
+}
+
 type CategoriesRepository interface {
 	CreateCategory(
 		name, description,
@@ -222,6 +228,12 @@ type GetArtResponse struct {
 	AuthorId    int      `json:"author_id"`
 	Type        string   `json:"type"`
 	Files       []string `json:"files"`
+}
+
+type SearchResponse struct {
+	Arts       []*repository.Art      `json:"arts"`
+	Authors    []*repository.Author   `json:"authors"`
+	Categories []*repository.Category `json:"categories"`
 }
 
 // ----------------------------------------

@@ -11,7 +11,7 @@ func (t *categoriesRepository) GetCategoryById(id int) (*repository.Category, er
 	query := `
 		SELECT 
 			categories.id, categories.name, 
-			categories.description, author_category.author_id
+			categories.description, categories.preview_file_id, author_category.author_id
 		FROM categories 
 		INNER JOIN author_category ON categories.id = author_category.category_id
 		WHERE categories.id = $1;
@@ -31,7 +31,7 @@ func (t *categoriesRepository) GetCategoryById(id int) (*repository.Category, er
 
 	for rows.Next() {
 		var authorId int
-		errScan := rows.Scan(&category.Id, &category.Name, &category.Description, &authorId)
+		errScan := rows.Scan(&category.Id, &category.Name, &category.Description, &category.PreviewFileId, &authorId)
 
 		if errScan != nil {
 			return nil, errScan

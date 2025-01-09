@@ -51,8 +51,9 @@ type Auction struct {
 }
 
 type Category struct {
-	Id          int
-	Name        string
-	Description string
-	AuthorsIds  []int
+	Id            int
+	Name          string
+	Description   string
+	PreviewFileId string
+	AuthorsIds    []int
 }

@@ -17,7 +17,7 @@ import (
 // @Produce json
 // @Param id path int true "Category ID"
 // @Param body body service.AddAuthorsBody true "Authors"
-// @Success 201 {object} sendResponse.Response
+// @Success 200 {object} sendResponse.Response
 // @Failure 400 {object} sendResponse.Response
 // @Failure 500 {object} sendResponse.Response
 // @Router /api/categories/{id}/authors [post]
@@ -32,7 +32,7 @@ func (t *categoriesService) AddAuthor(ctx *gin.Context) {
 			ctx,
 			http.StatusBadRequest,
 			"error",
-			"Invalid author id parameter.",
+			"Invalid id parameter.",
 			1,
 			1,
 			1,

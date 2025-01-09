@@ -34,6 +34,14 @@ type CategoriesRepository interface {
 	CheckExistCategory(id int) (bool, error)
 	AddAuthor(authorId, categoryId int) error
 	DeleteAuthor(authorId, categoryId int) error
+	DeleteCategory(id int) error
+	GetCategoryById(id int) (*repository.Category, error)
+	UpdateCategory(
+		id int,
+		name, description string,
+	) error
+	GetAllCategoriesIds() ([]int, error)
+	GetPreviewFile(fileName string) (*minio.Object, error)
 }
 
 type SsoRepository interface {
